@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>mints 実務マニュアル｜民事裁判書類電子提出システム（令和8年義務化対応版）</title>
+<style>
+  :root{
+    --navy:#1a2f55;
+    --navy-light:#2c4a7c;
+    --accent:#b08d2f;
+    --bg:#f7f8fa;
+    --paper:#ffffff;
+    --ink:#23303f;
+    --muted:#6b7787;
+    --line:#dde3ea;
+    --danger-bg:#fdf0f0; --danger-line:#c0392b;
+    --warn-bg:#fdf6e8;  --warn-line:#c8860a;
+    --tip-bg:#eef6f0;   --tip-line:#2e7d4f;
+    --law-bg:#f0f3f8;   --law-line:#1a2f55;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:1rem;}
+  @media(max-width:900px){html{scroll-padding-top:4rem;}}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+    font-size:16px; line-height:1.9;
+  }
+  /* ===== レイアウト ===== */
+  .wrap{display:flex; max-width:1280px; margin:0 auto;}
+  nav#toc{
+    width:300px; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto;
+    background:var(--navy); color:#dbe3f0; padding:1.2rem 0 3rem;
+  }
+  main{flex:1; min-width:0; padding:0 2.2rem 5rem; background:var(--paper);}
+  @media(max-width:900px){
+    .wrap{display:block;}
+    body{font-size:15px;}
+    /* 目次はドロワー化 */
+    nav#toc{
+      position:fixed; top:0; left:0; width:min(82vw,320px); height:100vh; height:100dvh; z-index:100;
+      transform:translateX(-100%); transition:transform .25s ease;
+      box-shadow:4px 0 18px rgba(0,0,0,.35); padding-top:3.4rem;
+      -webkit-overflow-scrolling:touch;
+    }
+    nav#toc.open{transform:translateX(0);}
+    nav#toc a{padding:.55rem 1.2rem; font-size:.92rem;}
+    nav#toc a.lv2{padding-left:2rem; font-size:.85rem;}
+    main{padding:0 1rem 4rem;}
+  }
+  /* ハンバーガーボタン（モバイルのみ） */
+  #menubtn{
+    display:none; position:fixed; top:.7rem; left:.7rem; z-index:120;
+    width:2.8rem; height:2.8rem; border-radius:8px; border:none; cursor:pointer;
+    background:var(--navy); color:#fff; font-size:1.25rem; line-height:1;
+    box-shadow:0 2px 8px rgba(0,0,0,.35);
+  }
+  #tocoverlay{
+    display:none; position:fixed; inset:0; background:rgba(10,18,35,.5); z-index:90;
+  }
+  @media(max-width:900px){
+    #menubtn{display:block;}
+    #tocoverlay.show{display:block;}
+    header.hero{padding-top:3.6rem;}
+  }
+  /* ===== 目次 ===== */
+  nav#toc .toc-title{font-size:1.05rem; font-weight:bold; color:#fff; padding:0 1.2rem .6rem; letter-spacing:.05em; border-bottom:1px solid rgba(255,255,255,.2); margin-bottom:.6rem;}
+  nav#toc a{display:block; color:#c7d2e4; text-decoration:none; padding:.28rem 1.2rem; font-size:.86rem; border-left:4px solid transparent;}
+  nav#toc a:hover{background:var(--navy-light); color:#fff;}
+  nav#toc a.lv2{padding-left:2rem; font-size:.8rem; color:#a9b8d0;}
+  nav#toc a.current{border-left-color:var(--accent); background:var(--navy-light); color:#fff;}
+  /* ===== ヘッダー ===== */
+  header.hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+    color:#fff; margin:0 -2.2rem; padding:2.6rem 2.6rem 2rem;
+  }
+  @media(max-width:900px){header.hero{margin:0 -1rem; padding:1.8rem 1.2rem;}}
+  header.hero .badge{display:inline-block; background:var(--accent); color:#fff; font-size:.78rem; font-weight:bold; padding:.15rem .7rem; border-radius:99px; letter-spacing:.08em;}
+  header.hero h1{margin:.6rem 0 .3rem; font-size:1.9rem; letter-spacing:.04em;}
+  header.hero p.sub{margin:0; color:#cdd8ea; font-size:.92rem;}
+  header.hero .meta{margin-top:1.1rem; font-size:.78rem; color:#aebcd4; border-top:1px solid rgba(255,255,255,.25); padding-top:.7rem; line-height:1.7;}
+  /* ===== 見出し ===== */
+  h2{
+    font-size:1.45rem; color:var(--navy); margin:3.2rem 0 1rem;
+    padding:.45rem .9rem; border-left:8px solid var(--navy); border-bottom:2px solid var(--line);
+    background:linear-gradient(90deg,#f0f3f8,transparent);
+  }
+  h2 .chapnum{color:var(--accent); margin-right:.5rem; font-family:Georgia,serif;}
+  h3{font-size:1.12rem; color:var(--navy); margin:2.2rem 0 .7rem; padding-bottom:.25rem; border-bottom:2px dotted var(--line);}
+  h4{font-size:1rem; color:var(--navy-light); margin:1.5rem 0 .5rem;}
+  /* ===== 本文部品 ===== */
+  p{margin:.5rem 0 .9rem;}
+  ul,ol{margin:.4rem 0 1rem; padding-left:1.6em;}
+  li{margin:.25rem 0;}
+  strong{color:#1f2a3a;}
+  mark{background:#fff1b8; padding:0 .15em;}
+  code{background:#eef1f5; border:1px solid var(--line); border-radius:4px; padding:.05em .4em; font-size:.9em; font-family:Consolas,"Courier New",monospace; overflow-wrap:anywhere; word-break:break-all;}
+  a{color:#1b5cb8; overflow-wrap:anywhere;}
+  /* コールアウト */
+  .box{border-radius:8px; padding:.9rem 1.1rem .7rem; margin:1rem 0; border:1px solid; border-left-width:6px;}
+  .box .box-title{font-weight:bold; display:block; margin-bottom:.3rem; font-size:.95rem;}
+  .danger{background:var(--danger-bg); border-color:var(--danger-line);}
+  .danger .box-title{color:var(--danger-line);}
+  .warn{background:var(--warn-bg); border-color:var(--warn-line);}
+  .warn .box-title{color:#9a6a08;}
+  .tip{background:var(--tip-bg); border-color:var(--tip-line);}
+  .tip .box-title{color:var(--tip-line);}
+  .law{background:var(--law-bg); border-color:var(--law-line); font-size:.92rem;}
+  .law .box-title{color:var(--navy);}
+  .law blockquote{margin:.5rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid #b9c5d8; color:#3a4657; line-height:1.85;}
+  .law .src{font-size:.78rem; color:var(--muted); display:block; margin-top:.4rem;}
+  /* 手順 */
+  ol.steps{counter-reset:step; list-style:none; padding-left:0;}
+  ol.steps>li{
+    counter-increment:step; position:relative; padding:.55rem 0 .55rem 3rem;
+    border-bottom:1px dashed var(--line);
+  }
+  ol.steps>li::before{
+    content:counter(step); position:absolute; left:.3rem; top:.65rem;
+    width:1.9rem; height:1.9rem; line-height:1.9rem; text-align:center;
+    background:var(--navy); color:#fff; border-radius:50%; font-weight:bold; font-size:.92rem;
+  }
+  /* テーブル */
+  table{border-collapse:collapse; width:100%; margin:.8rem 0 1.3rem; font-size:.9rem; background:#fff;}
+  th,td{border:1px solid var(--line); padding:.5rem .7rem; vertical-align:top; text-align:left;}
+  th{background:var(--navy); color:#fff; font-weight:600; white-space:nowrap;}
+  tbody tr:nth-child(even){background:#f6f8fb;}
+  table.compact td,table.compact th{padding:.35rem .55rem;}
+  /* モバイル：表は横スクロール・見出し縮小 */
+  @media(max-width:900px){
+    table{display:block; overflow-x:auto; white-space:normal;}
+    th{white-space:normal;}
+    header.hero h1{font-size:1.45rem;}
+    header.hero{margin:0 -1rem; padding:3.6rem 1.1rem 1.4rem;}
+    h2{font-size:1.2rem; margin:2.4rem 0 .9rem; padding:.4rem .6rem;}
+    h3{font-size:1.05rem;}
+    .box{padding:.75rem .8rem .55rem;}
+    ol.steps>li{padding-left:2.6rem;}
+    ol.steps>li::before{left:.1rem; width:1.7rem; height:1.7rem; line-height:1.7rem; font-size:.85rem;}
+  }
+  /* チートシート */
+  .cheat{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:.9rem; margin:1.2rem 0;}
+  .cheat .card{background:#fff; border:1px solid var(--line); border-top:5px solid var(--accent); border-radius:8px; padding:.9rem 1rem; box-shadow:0 1px 4px rgba(20,40,80,.06);}
+  .cheat .card h4{margin:.1rem 0 .5rem; font-size:.98rem; color:var(--navy);}
+  .cheat .card ul{margin:.2rem 0; padding-left:1.3em; font-size:.88rem;}
+  /* 参照タグ */
+  .ref{font-size:.75rem; color:var(--muted); background:#f0f2f6; border:1px solid var(--line); border-radius:4px; padding:.02em .45em; white-space:nowrap;}
+  /* ページトップ */
+  #pagetop{
+    position:fixed; right:1.4rem; bottom:1.4rem; width:3rem; height:3rem; border-radius:50%;
+    background:var(--navy); color:#fff; border:none; font-size:1.3rem; cursor:pointer; opacity:0; pointer-events:none;
+    transition:opacity .25s; box-shadow:0 3px 10px rgba(0,0,0,.3); z-index:50;
+  }
+  #pagetop.show{opacity:.85; pointer-events:auto;}
+  /* 印刷 */
+  @media print{
+    nav#toc,#pagetop{display:none;}
+    body{background:#fff; font-size:11pt;}
+    main{padding:0;}
+    header.hero{margin:0; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    h2{page-break-after:avoid;}
+    .box,table{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<button id="menubtn" aria-label="目次を開く" aria-expanded="false">☰</button>
+<div id="tocoverlay"></div>
+<div class="wrap">
+
+<!-- ============ 目次 ============ -->
+<nav id="toc">
+  <div class="toc-title">目 次</div>
+  <a href="#summary">⚡ まず押さえる8つのポイント</a>
+  <a href="#ch1">第1章 義務化の全体像</a>
+  <a href="#ch1-1" class="lv2">1.1 何が義務になったか</a>
+  <a href="#ch1-2" class="lv2">1.2 新法事件と旧法事件の区別</a>
+  <a href="#ch1-3" class="lv2">1.3 システム送達と1週間みなし</a>
+  <a href="#ch1-4" class="lv2">1.4 手数料の電子納付・郵券廃止</a>
+  <a href="#ch2">第2章 利用環境と基本ルール</a>
+  <a href="#ch3">第3章 初期設定</a>
+  <a href="#ch3-1" class="lv2">3.1 サインアップ（利用者登録）</a>
+  <a href="#ch3-2" class="lv2">3.2 弁護士の登録注意点</a>
+  <a href="#ch3-3" class="lv2">3.3 本人・資格確認</a>
+  <a href="#ch3-4" class="lv2">3.4 補助者（事務職員）の設定</a>
+  <a href="#ch4">第4章 サインインとパスワード</a>
+  <a href="#ch5">第5章 日常操作</a>
+  <a href="#ch5-1" class="lv2">5.1 ホーム画面とお知らせ</a>
+  <a href="#ch5-2" class="lv2">5.2 ファイルのアップロード</a>
+  <a href="#ch5-3" class="lv2">5.3 ダウンロード</a>
+  <a href="#ch5-4" class="lv2">5.4 印刷</a>
+  <a href="#ch5-5" class="lv2">5.5 受領書（旧法事件のみ）</a>
+  <a href="#ch5-6" class="lv2">5.6 記録外ファイル</a>
+  <a href="#ch5-7" class="lv2">5.7 アクセス記録は相手に通知される</a>
+  <a href="#ch6">第6章 新規申立て（オンライン提訴）</a>
+  <a href="#ch7">第7章 手数料納付（ペイジー）</a>
+  <a href="#ch8">第8章 招待キー・事件アクセスキー</a>
+  <a href="#ch9">第9章 PDF作成・ファイル変換のコツ</a>
+  <a href="#ch10">第10章 トラブルシューティング</a>
+  <a href="#ch11">第11章 事務所運用の実務Tips</a>
+  <a href="#ch12">第12章 根拠条文（全文）</a>
+  <a href="#ch13">第13章 参考リンク集</a>
+</nav>
+
+<!-- ============ 本文 ============ -->
+<main>
+
+<header class="hero" id="top">
+  <span class="badge">令和8年5月21日 義務化対応版</span>
+  <h1>mints 実務マニュアル</h1>
+  <p class="sub">民事裁判書類電子提出システム ― 事務所内利用手引き</p>
+  <div class="meta">
+    ベース資料：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版（改訂 2026.5.16）<br>
+    補足資料：裁判所ウェブサイト・mints公式FAQ・東京弁護士会LIBRA 2026年3月号・夕陽ヶ丘法律事務所ブログ ほか（→<a href="#ch13" style="color:#ffd98a;">第13章</a>）<br>
+    本マニュアル作成日：2026年6月10日　※画面の図解は公式マニュアル（PDF）の該当ページを参照してください。
+  </div>
+</header>
+
+<!-- ============ サマリー ============ -->
+<h2 id="summary"><span class="chapnum">⚡</span>まず押さえる8つのポイント</h2>
+<div class="cheat">
+  <div class="card"><h4>① 弁護士はオンライン提出が義務</h4>
+    <ul><li>令和8年（2026年）5月21日施行の改正民訴法132条の11により、<strong>委任を受けた訴訟代理人</strong>は申立て等をmintsで行う義務</li><li>本人訴訟の当事者は対象外（書面提出も可）</li></ul></div>
+  <div class="card"><h4>② 適用は「施行日以降に提起された訴え」</h4>
+    <ul><li>令和8年5月20日以前に提起された事件（旧法事件）は従来どおり書面・FAX</li><li>旧法事件でmintsの手数料納付機能を使うのは<strong>厳禁</strong></li></ul></div>
+  <div class="card"><h4>③ 1週間でみなし送達</h4>
+    <ul><li>裁判所からのシステム送達は、未閲覧でも<strong>1週間経過で送達の効力発生</strong>（民訴法109条の3）</li><li>そこから上訴期間等が起算される。メール不達でも進行する</li></ul></div>
+  <div class="card"><h4>④ 印紙・郵券は廃止（新法事件）</h4>
+    <ul><li>手数料は<strong>ペイジー</strong>で電子納付。郵券の予納も廃止され手数料に一本化</li><li>納付を怠ると訴状却下命令のリスク（民訴法137条の2）</li></ul></div>
+  <div class="card"><h4>⑤ 提出できるのは PDF（A4/A3）等のみ</h4>
+    <ul><li>記録になるファイル：PDF・MP3・MP4・JPEG・PNG、1回最大200MB</li><li>パスワード付きPDF不可、ファイル名は100文字以内</li></ul></div>
+  <div class="card"><h4>⑥ アップロードしたら取り消せない</h4>
+    <ul><li>提出後の差替え・削除は<strong>裁判所しかできない</strong>。誤提出は担当書記官に電話</li><li>提出前のプレビュー確認を習慣に</li></ul></div>
+  <div class="card"><h4>⑦ 閲覧・DLの記録が相手に通知される</h4>
+    <ul><li>初回の閲覧・ダウンロード・印刷で「アクセス状況の記録」が付き、<strong>全当事者にメール通知</strong>される</li></ul></div>
+  <div class="card"><h4>⑧ 受領書・押印は新法事件では不要</h4>
+    <ul><li>新法事件は受領書提出不要（アクセス記録が代替）。書面の押印も不要</li><li>旧法事件では従来どおり受領書を提出</li></ul></div>
+</div>
+
+<!-- ============ 第1章 ============ -->
+<h2 id="ch1"><span class="chapnum">第1章</span>義務化の全体像</h2>
+
+<h3 id="ch1-1">1.1 何が義務になったか</h3>
+<p>令和8年5月21日、民事裁判手続のデジタル化（いわゆるフェーズ3）に係る改正民事訴訟法が全面施行されました。これにより、民事訴訟における申立てその他の申述（申立て等）は、誰でもインターネット経由（mints）で行うことが<strong>可能</strong>になり（民訴法132条の10）、次の者には mints による提出が<strong>義務</strong>付けられました（民訴法132条の11第1項。条文全文は<a href="#ch12">第12章</a>）。</p>
+<table>
+  <thead><tr><th>義務の対象者</th><th>対象となる事件</th></tr></thead>
+  <tbody>
+    <tr><td><strong>委任を受けた訴訟代理人</strong>（弁護士等。民訴法54条1項ただし書の許可代理人は除く）</td><td>当該委任を受けた事件</td></tr>
+    <tr><td>法務大臣権限法による指定を受けた者（国の指定代理人）</td><td>当該指定の対象事件</td></tr>
+    <tr><td>地方自治法153条1項の委任を受けた職員</td><td>当該委任を受けた事件</td></tr>
+  </tbody>
+</table>
+<p>義務の内容は2つあります。</p>
+<ul>
+  <li><strong>オンライン提出義務</strong>：訴状・準備書面・証拠等の申立て等を mints で提出しなければならない（口頭ですることができる申立てを口頭でする場合を除く）。</li>
+  <li><strong>システム送達届出義務</strong>：システム送達（後記1.3）を受ける旨の届出をしなければならない（132条の11第2項）。</li>
+</ul>
+<div class="warn"><span class="box-title">⚠ 例外 ― システム障害時</span>
+裁判所の電子計算機の故障その他<strong>本人の責めに帰することができない事由</strong>により mints で提出できない場合には、義務は適用されません（132条の11第3項）。この場合は書面提出が可能です。障害発生時はスクリーンショット等で状況を記録しておくことを推奨します。</div>
+<div class="tip"><span class="box-title">✎ 義務違反の効果について</span>
+代理人が義務に反して書面提出した場合の取扱い（不適法却下・ファイル不記録等）について、公式資料での明確な記載は確認できていません（解説記事レベルでは「書記官がファイルに記録しない」等の指摘あり・二次情報）。少なくとも実務上、新法事件で代理人が就いている限り書面提出は受け付けられない前提で対応してください。</div>
+
+<h3 id="ch1-2">1.2 新法事件と旧法事件の区別</h3>
+<p>義務化は<strong>施行日（令和8年5月21日）以降に提起された訴え</strong>に適用されます。施行前に提起された事件（旧法事件）は、引き続き書面により審理・送達が行われます（裁判所公式）。当面は両者が併存するため、<mark>事件ごとに「新法事件か旧法事件か」を最初に確認する</mark>運用が必須です。</p>
+<table>
+  <thead><tr><th></th><th>新法事件（R8.5.21以降提起）</th><th>旧法事件（R8.5.20以前提起）</th></tr></thead>
+  <tbody>
+    <tr><td><strong>書面提出</strong></td><td>代理人は mints 義務。mints上の電子データ自体が訴訟記録</td><td>従来どおり書面・FAX（mintsは従前の任意利用の範囲）</td></tr>
+    <tr><td><strong>送達</strong></td><td>システム送達（1週間みなしあり）</td><td>従来どおりの送達</td></tr>
+    <tr><td><strong>手数料</strong></td><td>ペイジー電子納付（印紙・郵券廃止）</td><td>収入印紙・郵券。<strong>mintsの納付機能は使用厳禁</strong></td></tr>
+    <tr><td><strong>受領書</strong></td><td>不要（アクセス記録が代替）</td><td>必要（mints上で受領書作成・提出）</td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch1-3">1.3 システム送達と「1週間みなし送達」</h3>
+<p>新法事件では、裁判所からの判決書・期日呼出状等は mints へのアップロード＋通知メールによって送達されます（民訴法109条の2）。送達の効力は次の<strong>いずれか早い時</strong>に生じます（109条の3）。</p>
+<ol class="steps">
+  <li>送達を受けるべき者が mints 上でファイルを<strong>閲覧</strong>した時</li>
+  <li>送達を受けるべき者がファイルを<strong>ダウンロード（記録）</strong>した時</li>
+  <li>通知が発せられた日（弁護士等の義務対象者は閲覧等の措置がとられた日）から<strong>1週間を経過した時</strong></li>
+</ol>
+<div class="danger"><span class="box-title">🚨 最重要 ― 期限管理</span>
+<ul>
+<li>判決書がアップロードされると、<strong>閲覧しなくても1週間後に送達が成立し、そこから控訴期間（2週間）が起算</strong>されます。例：4月1日アップロード → 未閲覧でも4月8日に送達成立 → 控訴期限は4月22日。</li>
+<li>弁護士等の義務対象者には、届出をしていなくてもシステム送達ができ、<strong>通知メールの発出すら法律上は不要</strong>とされています（109条の4）。<mark>メールが届かなくても送達は進行し得る</mark>ため、係属事件がある間は mints へ定期的（最低週1回以上推奨）にサインインして確認してください。</li>
+<li>通知メール（<code>info@mints.courts.go.jp</code> 等）が迷惑メールに振り分けられないよう受信設定を必ず行うこと（→2章）。</li>
+</ul></div>
+
+<h3 id="ch1-4">1.4 手数料の電子納付・郵券廃止</h3>
+<ul>
+  <li>新法事件の申立手数料は、収入印紙に代わり<strong>ペイジー（Pay-easy）</strong>による電子納付になりました（操作は<a href="#ch7">第7章</a>）。</li>
+  <li><strong>郵券（予納郵便切手）の予納は廃止</strong>され、送達費用は申立手数料に一本化されました。</li>
+  <li>納付を怠ると、補正依頼 → 裁判所書記官の納付処分を経て、<strong>裁判長による訴状却下命令</strong>に至ることがあります（民訴法137条の2参照・東弁LIBRA 2026年3月号）。</li>
+</ul>
+
+<!-- ============ 第2章 ============ -->
+<h2 id="ch2"><span class="chapnum">第2章</span>利用環境と基本ルール <span class="ref">公式マニュアル p.2〜7</span></h2>
+
+<table>
+  <thead><tr><th>項目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>接続URL</strong></td><td><a href="https://www.mints.courts.go.jp/user/" target="_blank" rel="noopener">https://www.mints.courts.go.jp/user/</a></td></tr>
+    <tr><td><strong>OS</strong></td><td>Windows 10 / 11（Windows 10 は2025年10月14日にMicrosoftサポート終了済みのため11推奨）</td></tr>
+    <tr><td><strong>推奨ブラウザ</strong></td><td>Microsoft Edge / Google Chrome（IEは動作保証外）。ウィンドウは<strong>最大化</strong>して利用</td></tr>
+    <tr><td><strong>電子証明書</strong></td><td>不要（メールアドレス＋電話番号による二要素認証）</td></tr>
+    <tr><td><strong>利用可能時間</strong></td><td>24時間365日。ただし<strong>毎月最終土曜日 午前2時〜午前10時</strong>は定期メンテナンスで利用不可</td></tr>
+    <tr><td><strong>タイムアウト</strong></td><td>一定時間無操作でサインアウト。<strong>新規申立てフォーム入力中の内容は失われる</strong>ため、こまめに「保存」</td></tr>
+    <tr><td><strong>入力可能文字</strong></td><td>JIS X 0213 が基本。「髙」「﨑」等の外字・特殊文字はエラーになる → 代替文字に置換</td></tr>
+    <tr><td><strong>ファイル名</strong></td><td>拡張子込み<strong>100文字以内</strong>（全角・半角とも1文字カウント）</td></tr>
+    <tr><td><strong>ブラウザの戻る/進む</strong></td><td>動作保証外。画面内のボタンで遷移する</td></tr>
+  </tbody>
+</table>
+
+<h3>メール受信設定（必須）</h3>
+<ul>
+  <li>通知メールの送信元：<code>info@mints.courts.go.jp</code> および <code>msonlineservicesteam@microsoftonline.com</code></li>
+  <li>ドメイン <code>mints.courts.go.jp</code> と <code>microsoftonline.com</code> を受信許可し、<strong>迷惑メールフォルダに振り分けられない設定</strong>にする。</li>
+  <li>携帯電話での受信はメッセージが欠ける可能性あり。<strong>PCで受信できるアドレス</strong>を使う。</li>
+  <li>関与事件・当事者が多いと通知メールが大量に届くため、<strong>mints専用アドレスの取得を公式マニュアルも推奨</strong>。エイリアスアドレスも登録可（mintsチャットボット確認・夕陽ヶ丘法律事務所ブログ）。</li>
+  <li>SMS認証・電話認証を使うため、<strong>海外からのSMS・電話の受信拒否設定は解除</strong>しておく。</li>
+</ul>
+
+<h3>困ったときの公式サポート</h3>
+<ul>
+  <li>トップ画面に「操作マニュアル」「FAQ」「操作説明動画（YouTube）」「初めてご利用の方へ」へのリンクあり。</li>
+  <li>画面右下の<strong>チャットボット</strong>で質問可能。解決しない場合はチャットボットの「お問合せ窓口を知りたい」から問い合わせフォームへ。</li>
+</ul>
+
+<!-- ============ 第3章 ============ -->
+<h2 id="ch3"><span class="chapnum">第3章</span>初期設定</h2>
+
+<h3 id="ch3-1">3.1 サインアップ（利用者登録） <span class="ref">公式マニュアル p.8〜13</span></h3>
+<p>裁判所に利用申請をすると（事件単位で書記官に申請、または招待キー方式）、「【mints】新規アカウント登録の御案内」メールが届きます。届いたら次の手順で登録します。</p>
+<ol class="steps">
+  <li>Edge または Chrome で <code>https://www.mints.courts.go.jp/user/</code> に接続し、「サインイン」→「今すぐサインアップ」を押下（サインイン画面は別ウィンドウで開く。<strong>ポップアップブロックに注意</strong>）</li>
+  <li>メールアドレスを入力し「確認コードを送信」。<strong>招待メールを受信したアドレスのみ入力可</strong></li>
+  <li>受信した確認コードを入力（有効期限は<strong>180秒</strong>。切れたら再発行）</li>
+  <li>パスワード（英大文字・英小文字・数字・記号の4種類すべてを含む10〜64文字）と利用者情報を入力し「Create」</li>
+  <li>二要素認証：電話番号を入力し、SMS「コードの送信」または「電話する」（自動音声）で認証</li>
+  <li>「アカウント登録完了」メールが届けば完了。メールに記載される<strong>ID（14桁）は今後裁判所に伝える場面があるため控えておく</strong></li>
+</ol>
+<div class="warn"><span class="box-title">⚠ 入力時の注意</span>
+<ul>
+<li>氏名・住所は<strong>全角</strong>で入力（氏名カナは全角カタカナ）。</li>
+<li><strong>氏名・生年月日・住所は登録後に自分で変更できません</strong>（変更には証明書類のアップロードと裁判所への申請が必要）。誤字に注意。</li>
+<li>途中で「キャンセル」を押すと入力データは保存されません。</li>
+</ul></div>
+
+<h3 id="ch3-2">3.2 弁護士の登録注意点</h3>
+<ul>
+  <li>住所欄には自宅でなく<strong>事務所住所</strong>を登録し、<strong>末尾に「（送達場所）」と入力</strong>する（公式マニュアルの指示）。事務所名の記載も推奨（夕陽ヶ丘法律事務所ブログ）。</li>
+  <li>登録情報は新規申立てフォームの当事者情報入力時に「入力者の情報呼出」で自動転記されるため、ここが誤っていると<strong>訴状の表示がそのまま誤る</strong>。</li>
+  <li>当事者ユーザのアカウントは1人1つのみ（複数アカウント不可）。</li>
+  <li>士業者登録番号を入力しておくと、<strong>1年間未サインインでも自動削除されない</strong>（未入力の一般ユーザは最終サインインから1年で自動削除）。</li>
+</ul>
+
+<h3 id="ch3-3">3.3 本人・資格確認（改正法施行後は必須） <span class="ref">公式マニュアル p.22〜26</span></h3>
+<ul>
+  <li>改正法施行後は、新規申立てや招待キー入力等の全機能を使うために<strong>本人・資格確認</strong>が必要。裁判所側で本人確認フラグが「済」になると「新規申立一覧」「事件一覧」「手数料納付情報一覧」「招待キー入力」が有効化される。</li>
+  <li>弁護士の本人確認書類：<strong>所属弁護士会の身分証明書＋単位会発行の印鑑証明書</strong>のPDF（アカウント設定画面の「本人・資格確認資料」欄にアップロード）。窓口での本人確認も可。</li>
+  <li><strong>経過措置</strong>：令和8年5月20日以前に登録済みのアカウントはそのまま利用でき、本人確認書類の再提出は不要（夕陽ヶ丘法律事務所ブログ）。</li>
+</ul>
+<div class="danger"><span class="box-title">🚨 マイナンバーカードをアップロードしない</span>
+本人確認資料として<strong>マイナンバーカードを mints にアップロードしてはいけません</strong>（裁判所公式の注意喚起）。誤ってアップロードした場合は直ちに裁判所へ連絡してください。</div>
+
+<h3 id="ch3-4">3.4 補助者（事務職員）の設定 <span class="ref">公式マニュアル p.27〜28</span></h3>
+<p>弁護士（親ユーザ）は、事務職員を<strong>補助者ユーザ</strong>として関連付けることができます。補助者の操作はすべて<strong>親ユーザが行ったものとみなされ</strong>、閲覧・ダウンロード等のアクセス記録も親ユーザ名義で付されます。</p>
+<table class="compact">
+  <thead><tr><th>ルール</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>設定可能数</td><td>1人の親ユーザにつき補助者IDは<strong>5つまで</strong></td></tr>
+    <tr><td>兼任</td><td>同一の補助者アカウントを複数の弁護士が共有することは<strong>不可</strong>。複数の弁護士の補助者になる職員は、弁護士ごとに別アカウントを取得（<strong>1人10アカウントまで</strong>）</td></tr>
+    <tr><td>できること</td><td>事件情報の確認／新規申立て／アップロード／閲覧・DL／印刷／受領書作成／納付情報確認（いずれも親ユーザ名義）</td></tr>
+    <tr><td>できないこと</td><td><strong>招待キーの入力</strong>（親ユーザ本人の操作が必要）</td></tr>
+  </tbody>
+</table>
+<p><strong>設定手順</strong>：① 裁判所に補助者となる職員のメールアドレスを申請 → ② 職員宛に招待メールが届き、職員がサインアップ（氏名欄は「補助者△△△△」形式） → ③ 職員がアカウント設定画面で自分のID（14桁）を確認して弁護士に伝達 → ④ 弁護士が自分のアカウント設定画面で補助者IDを登録。</p>
+<div class="warn"><span class="box-title">⚠ 補助者運用の注意</span>
+<ul>
+<li>職員が<strong>離職した場合は、必ず関連付けを解除</strong>する（アカウント設定画面で対象の補助者IDを削除して更新）。</li>
+<li>解除の際、<strong>「アカウント削除」ボタンを押すと自分（親ユーザ）のアカウントが消える</strong>ので絶対に間違えないこと。</li>
+</ul></div>
+
+<!-- ============ 第4章 ============ -->
+<h2 id="ch4"><span class="chapnum">第4章</span>サインインとパスワード <span class="ref">公式マニュアル p.14〜20</span></h2>
+<ol class="steps">
+  <li><code>https://www.mints.courts.go.jp/user/</code> →「サインイン」を押下</li>
+  <li>メールアドレスとパスワードを入力</li>
+  <li>二要素認証：SMS「コードの送信」（コード有効期限180秒）または「電話する」（自動音声）</li>
+  <li>ホーム画面が表示されたら完了</li>
+</ol>
+<h3>パスワードを忘れた・変更したいとき</h3>
+<p>サインイン画面の「パスワードを忘れた場合」から、①登録メールアドレスに確認コード送信 → ②コード入力 → ③二要素認証 → ④新パスワード設定、の順で再設定できます。パスワード要件は<strong>英大文字・英小文字・数字・記号の4種類すべてを含む10〜64文字</strong>。メールアドレスは大文字・小文字も正確に入力してください。登録メールアドレス自体が不明な場合は係属裁判所へ問い合わせます。</p>
+<div class="warn"><span class="box-title">⚠ アカウント設定変更時の注意</span>
+二要素認証用電話番号やメールアドレスを誤って更新すると、<strong>次回サインインできなくなり、通知メールも届かなくなります</strong>。変更時は入力内容を十分確認してください。過去に別アカウントで使用したメールアドレスへの変更は「サーバ処理が失敗しました」エラーになることがあります（その場合は問い合わせフォームへ）。</div>
+
+<!-- ============ 第5章 ============ -->
+<h2 id="ch5"><span class="chapnum">第5章</span>日常操作（事件確認・提出・受領）</h2>
+
+<h3 id="ch5-1">5.1 ホーム画面とお知らせ <span class="ref">公式マニュアル p.21, 60〜62</span></h3>
+<ul>
+  <li>「重要なお知らせ」「新着情報」には提出期限・アップロード・印刷データ生成等の通知が<strong>掲載日から2週間</strong>表示され、その後さらに2週間は「過去のお知らせ」から閲覧可能（リンクは消える）。</li>
+  <li>サイドバー「事件一覧」→ 事件の行をクリックで事件情報画面へ。提出期限が設定されたファイル、提出済みファイル等を確認できる。</li>
+  <li>事件情報画面のタブ：<strong>記録一覧</strong>（主張・証拠・証拠説明書・調書・裁判書等＝訴訟記録）／<strong>記録外一覧</strong>／<strong>関連事件一覧</strong>。</li>
+</ul>
+
+<h3 id="ch5-2">5.2 ファイルのアップロード <span class="ref">公式マニュアル p.64〜69</span></h3>
+<h4>ファイル要件（最重要）</h4>
+<table>
+  <thead><tr><th>提出区分</th><th>可能な形式</th><th>用紙サイズ</th></tr></thead>
+  <tbody>
+    <tr><td><strong>記録</strong>（主張・証拠・証拠説明書・関連事件の申立て・その他）＝正式な訴訟記録</td><td>PDF／MP3／MP4／JPEG／PNG</td><td>PDFは<strong>A4・A3のみ</strong>（混在可）</td></tr>
+    <tr><td><strong>記録外</strong>（正式提出にならない参考資料）</td><td>上記＋Word(.docx)／Excel(.xlsx)／PowerPoint(.pptx)</td><td>制限なし</td></tr>
+  </tbody>
+</table>
+<ul>
+  <li>1回のアップロード上限：<strong>合計200MB</strong>（超える場合は分割）</li>
+  <li><strong>パスワード付きファイルは不可</strong></li>
+  <li>ファイル名：拡張子込み100文字以内、使用不可文字があるとエラー</li>
+  <li><strong>同名ファイルの同時アップロード不可</strong>（タイミングを分ければ可）</li>
+  <li>対応形式外のデータ（特殊な音声・動画等）は従来どおりCD-R等の媒体で裁判所・相手方に提出（「フェーズ3に向けた準備の手引」28頁）</li>
+</ul>
+<h4>手順</h4>
+<ol class="steps">
+  <li>事件情報画面で「提出ファイル選択」から対象を選ぶ。<strong>提出期限が設定されたファイル（「準備書面」等）はその行を選択</strong>、それ以外は「提出期限のないファイル」を選択して「アップロード」を押下</li>
+  <li>ファイル種別タブ（主張／証拠／証拠説明書／その他／記録外 等）を選択し、ファイルを選択またはドラッグ＆ドロップ。複数選択可だが<strong>順番どおりに並ばないことがある</strong>ため、順序が重要なら1ファイルずつ</li>
+  <li>「追加」→ 一覧を確認 → 「提出」を押下（チェックボックスにチェックが入っていると提出ボタンが押せない）</li>
+  <li>確認メッセージで「OK」→ ウイルススキャン（数分）→ 完了すると新着情報に通知され、<strong>全当事者にメールが送信される</strong></li>
+  <li>証拠の場合は「証拠番号を編集」で <code>甲001</code> <code>乙002</code> のように<strong>半角3桁</strong>で入力（記録一覧の並べ替えに使われる。主張書面は入力不要）</li>
+</ol>
+<div class="danger"><span class="box-title">🚨 アップロードは取り消せない</span>
+提出後のファイルの差替え・削除・ファイル名や書面種別の変更は<strong>当事者側ではできません</strong>。誤って提出した場合は<strong>担当書記官に電話して削除を依頼</strong>します。「提出」を押す前にプレビューで中身を必ず確認してください（アップロード画面のファイル選択時にプレビューウィンドウで内容確認可）。</div>
+<div class="tip"><span class="box-title">✎ 書証ファイルの作り方（公式FAQの推奨）</span>
+<ul>
+<li><strong>1書証1ファイル</strong>が原則。枝番のある書証は「甲001_1〜3」のように1ファイルにまとめてよい。</li>
+<li>書証データの<strong>右上に証拠番号を記載</strong>しておく。</li>
+<li>提出するPDFには裁判所側でタイムスタンプが付され、これが受付印の代わりになる。</li>
+</ul></div>
+
+<h3 id="ch5-3">5.3 ダウンロード <span class="ref">公式マニュアル p.70〜73</span></h3>
+<ul>
+  <li><strong>単一ファイル</strong>：事件情報画面でファイルを1つ選択 →「ダウンロード」。</li>
+  <li><strong>複数ファイル</strong>：複数選択 →「ダウンロード」→ データ生成後、ホームの「重要なお知らせ」の「ダウンロードデータの生成が完了しました。」を押下すると開始。<strong>ZIP形式</strong>でまとまる。</li>
+  <li><strong>結合ダウンロード</strong>：複数選択 →「一つのファイルにしてダウンロード」で1本のPDFに結合できる（記録の通し読みに便利）。</li>
+  <li>ZIPは<strong>Windows標準機能で解凍</strong>する（他の解凍ソフトはファイル名が文字化けすることがある）。</li>
+  <li>生成・ダウンロードには数分かかることがある。</li>
+</ul>
+
+<h3 id="ch5-4">5.4 印刷 <span class="ref">公式マニュアル p.74〜76, 92〜94</span></h3>
+<ul>
+  <li>印刷機能で印刷できるのは<strong>PDFのみ</strong>（JPEG・PNGはダウンロードして印刷）。</li>
+  <li>単一・複数とも「一括印刷」ボタンから。複数の場合は印刷データ生成後、「重要なお知らせ」から印刷プレビューを開く。</li>
+  <li><strong>A3とA4が混在</strong>する場合はプレビューが出ず、PDFがダウンロードされるので開いて印刷する。</li>
+  <li><strong>未印刷物一括印刷</strong>：事件一覧画面の「未印刷物一括印刷」→「開始」で、未印刷のファイルをまとめて印刷できる。印刷済みのファイルは対象から外れる。300MB超は分割生成。</li>
+  <li>Adobe Acrobat Reader の印刷設定で「<strong>PDFのページサイズに合わせて用紙を選択</strong>」にチェックを入れておくと、A3/A4が原寸で出力される（→<a href="#ch9">第9章</a>）。</li>
+</ul>
+
+<h3 id="ch5-5">5.5 受領書（旧法事件のみ） <span class="ref">公式マニュアル p.77〜79</span></h3>
+<ul>
+  <li><strong>旧法事件</strong>では、相手方からファイルがアップロードされたら受領書を提出する（<strong>新法事件と記録外ファイルでは不要</strong>）。</li>
+  <li>手順：対象ファイルを<strong>1つだけ</strong>選択 →「受領書作成」→ 内容確認（必要なら編集）→「受領書提出」。同時にアップロードされたファイルがまとめて対象になる。</li>
+  <li>2つ以上選択すると受領書作成ボタンが押せなくなる点に注意。</li>
+</ul>
+
+<h3 id="ch5-6">5.6 記録外ファイル <span class="ref">公式マニュアル p.80〜82</span></h3>
+<ul>
+  <li>「記録外」は<strong>正式な提出にはならない</strong>参考資料の置き場（Word・Excel等も可）。判決書の修正用データや事務連絡等に使われる。</li>
+  <li><strong>記録外にアップロードしたファイルも、事件に関連付けられた全当事者が閲覧できる</strong>。相手方に見せたくない資料を置かないこと。</li>
+</ul>
+
+<h3 id="ch5-7">5.7 アクセス記録は相手に通知される <span class="ref">公式マニュアル p.63, 別紙1</span></h3>
+<div class="warn"><span class="box-title">⚠ 知っておくべき仕様</span>
+<ul>
+<li>ファイルを<strong>初めて閲覧・ダウンロード・印刷</strong>すると「アクセス状況の記録」が付き、<strong>事件に関連付けられた全当事者・補助者にメールで通知</strong>されます（「【mints】ファイルが閲覧・ダウンロードされました。」）。つまり、<mark>こちらが相手方の書面をいつ閲覧したかは相手方にも分かります</mark>（逆も同様）。</li>
+<li>補助者が閲覧した場合も<strong>親ユーザ（弁護士）名義</strong>で記録されます。</li>
+<li>新法事件では、このアクセス記録が送達効力の発生（109条の3第1項1号・2号）や受領書の代替として機能します。</li>
+</ul></div>
+
+<!-- ============ 第6章 ============ -->
+<h2 id="ch6"><span class="chapnum">第6章</span>新規申立て（オンライン提訴） <span class="ref">公式マニュアル p.30〜55</span></h2>
+
+<p>新法事件の訴え提起・控訴・上告・支払督促等は、サイドバー「新規申立一覧」→「新規作成」のフォームから行います。</p>
+
+<h3>6.1 全体の流れ</h3>
+<ol class="steps">
+  <li><strong>入力者肩書・申立種別を選択</strong>（訴え提起／控訴／上告・上告受理／支払督促／その他）</li>
+  <li><strong>当事者・代理人情報を入力</strong>（フォーム入力は合計10人まで。超える場合はCSV提出が必須）。「入力者の情報呼出」ボタンでアカウント登録情報を自動転記できる</li>
+  <li><strong>申立内容を入力</strong>：提出先裁判所・事件種別・事件名・被告の数・訴額・申立ての趣旨（400字以内）・申立ての理由（10,000字以内）</li>
+  <li><strong>添付書類をアップロード</strong>：訴状本文のPDF・委任状・資格証明書等</li>
+  <li><strong>参考事項を入力</strong>（訴え提起・控訴のとき表示。<strong>相手方には開示されない</strong>）</li>
+  <li>「保存」で一時保存 →「プレビュー」「申立ダウンロード」で申立書の仕上がりを確認 →<strong>「提出」</strong></li>
+  <li>ステータスが「提出中」→「提出済」になり、<strong>受付番号・受理日</strong>が表示される。完了メールも届く。その後、裁判所による立件・事件への関連付けを待つ</li>
+</ol>
+
+<h3>6.2 入力ルールの要点</h3>
+<table>
+  <thead><tr><th>項目</th><th>ルール</th></tr></thead>
+  <tbody>
+    <tr><td>氏名・住所</td><td><strong>全角</strong>で入力。丁目・番地は<strong>漢数字</strong>（夕陽ヶ丘法律事務所ブログ）。郵便番号・電話番号はハイフンなし半角</td></tr>
+    <tr><td>代理人住所</td><td>事務所住所＋事務所名＋<strong>「（送達場所）」</strong>を末尾に記載</td></tr>
+    <tr><td>法人の当事者</td><td><strong>国税庁法人番号サイトの13桁の法人番号</strong>を使用（登記の12桁の会社法人等番号と混同しない）</td></tr>
+    <tr><td>訴額</td><td>単位は<strong>万円</strong>。1万円未満は<strong>切り上げ</strong>（例：432,100円 → 「44」と入力）</td></tr>
+    <tr><td>手数料</td><td>被告の数と訴額から<strong>自動計算</strong>される（手入力での訂正も可。額が違うときは訂正する）。申立種別「その他」は自動計算されないため手入力</td></tr>
+    <tr><td>システム送達届出</td><td>属性が代理人の場合は<strong>初期状態でON</strong>。義務対象者は<strong>OFFにしないこと</strong>（132条の11第2項の届出義務）</td></tr>
+    <tr><td>入力順</td><td>申立書にはフォーム入力順に表示される。「原告本人 → 同代理人」の順で入力</td></tr>
+    <tr><td>反訴</td><td>「反訴又は上訴対象の事件番号」に<strong>本訴の事件番号</strong>を入力</td></tr>
+    <tr><td>控訴</td><td>提出先＝<strong>原裁判所</strong>、申立先＝控訴裁判所の双方を選択（例：東京高裁宛の控訴状は提出先「東京地裁」・申立先「東京高裁」）。対象事件番号は第一審のもの</td></tr>
+    <tr><td>上告・上告受理</td><td>提出先・申立先の双方を選択。対象事件番号は<strong>第二審</strong>のもの</td></tr>
+    <tr><td>支払督促</td><td>提出先は簡易裁判所のみ</td></tr>
+  </tbody>
+</table>
+
+<div class="warn"><span class="box-title">⚠ 一時保存まわりの注意</span>
+<ul>
+<li>フォーム入力中に画面移動やタイムアウトがあると<strong>入力内容は失われる</strong>。こまめに「保存」を押す。</li>
+<li>一時保存の保存期限は<strong>最終保存日から1か月</strong>。期限内に保存も提出もしないと削除される。</li>
+<li>「保存」しただけでは提出になっていない（「提出ボタンをクリックするまで提出は完了となりません」）。</li>
+</ul></div>
+<div class="tip"><span class="box-title">✎ 実務の段取り（夕陽ヶ丘法律事務所ブログ）</span>
+<ul>
+<li>新規申立て時に添付するのは<strong>訴状・委任状・資格証明等</strong>のPDF。<strong>証拠・証拠説明書は裁判所の事件登録完了後</strong>に、事件情報画面からアップロードする。</li>
+<li>被告に代理人が付いていない場合、被告への訴状送達は原告代理人が提出する<strong>出力書面（訴状を印刷したもの）</strong>で行われる運用が多い（改正民訴規則58条1項参照）。裁判所からの指示に従って準備する。</li>
+<li>簡裁への同種大量申立て（債権回収等）には「簡裁用一括申立て」機能があり、当事者情報等をCSVで提出する。</li>
+</ul></div>
+
+<!-- ============ 第7章 ============ -->
+<h2 id="ch7"><span class="chapnum">第7章</span>手数料納付（ペイジー） <span class="ref">公式マニュアル p.56〜59</span></h2>
+
+<div class="danger"><span class="box-title">🚨 旧法事件では使用厳禁</span>
+手数料納付機能が使えるのは<strong>新法事件（改正法適用事件）のみ</strong>です。旧法事件では mints による手数料納付は絶対にしないでください（公式マニュアルの強い注意書き）。</div>
+
+<ol class="steps">
+  <li>裁判所が手数料納付情報を登録すると、納付義務者（と補助者）に<strong>通知メール</strong>が届き、ホームの「重要なお知らせ」にも表示される</li>
+  <li>サイドバー「手数料納付情報一覧」で、ペイジーの<strong>「収納機関番号」「納付番号」「確認番号」</strong>を確認（番号にカーソルを合わせるとコピー可）</li>
+  <li>インターネットバンキングまたはATM（ペイジー対応）で納付する</li>
+  <li>納付が完了すると一覧の「納付日」に日付が入り、「新着情報」にも通知される</li>
+</ol>
+<ul>
+  <li>納付期限の<strong>14日前・7日前・2日前・1日前・当日</strong>にリマインドメールが届く。</li>
+  <li><strong>納付期限を過ぎると、その納付情報では納付できなくなる</strong>。失念したら速やかに裁判所へ連絡。放置すると納付処分 → <strong>訴状却下命令</strong>（民訴法137条の2）に至り得る。</li>
+</ul>
+<div class="tip"><span class="box-title">✎ 番号の控え方</span>
+mints には納付番号を印刷する機能がないため、<strong>画面のスクリーンショットで番号を控えて経理に回す</strong>運用が現実的です（夕陽ヶ丘法律事務所ブログ）。</div>
+
+<!-- ============ 第8章 ============ -->
+<h2 id="ch8"><span class="chapnum">第8章</span>招待キー・事件アクセスキー <span class="ref">公式マニュアル p.84〜91</span></h2>
+
+<h3>8.1 招待キー（当事者・代理人用）</h3>
+<ul>
+  <li>裁判所から交付される<strong>12桁の半角英数字</strong>。入力すると、書記官の関連付け作業を待たずに自分で事件の当事者に関連付けられる。</li>
+  <li>操作：サイドバー「招待キー入力」→ キーを入力 →「送信」。メールで受領した場合はホームのお知らせからも遷移可。</li>
+  <li><strong>補助者ユーザは入力できない</strong>。親ユーザ（弁護士本人）が操作する。</li>
+  <li>招待キーには<strong>有効期限</strong>がある（メールに記載）。「使用できません」エラーの場合は係属部に問い合わせる。</li>
+</ul>
+<h3>8.2 事件アクセスキー（第三者用）</h3>
+<ul>
+  <li>事件の当事者ではない<strong>第三者</strong>（文書送付嘱託の嘱託先金融機関等）がファイルをアップロードするための12桁キー。</li>
+  <li>第三者は事件に関連付けられないまま、「事件アクセスキー入力」からアップロードのみ行える。</li>
+</ul>
+
+<!-- ============ 第9章 ============ -->
+<h2 id="ch9"><span class="chapnum">第9章</span>PDF作成・ファイル変換のコツ <span class="ref">公式マニュアル 別紙3〜5</span></h2>
+
+<h3>9.1 Word/Excel → PDF 変換（メタデータを残さない方法）</h3>
+<div class="danger"><span class="box-title">🚨 作成者名などの個人情報に注意</span>
+通常の方法でPDF化すると、<strong>ファイルのプロパティに作成者名等が残り</strong>、相手方がダウンロードしたPDFからそれが見えることがあります。<strong>PDF化した後ではプロパティ・個人情報の削除はできません</strong>。必ず下記オプション設定で変換してください（DV・ストーカー関連事件等では特に重要）。</div>
+<ol class="steps">
+  <li>Word/Excelで「ファイル」→「名前を付けて保存」→ ファイル形式「PDF(*.pdf)」を選択</li>
+  <li>「その他のオプション」→「オプション」を開く</li>
+  <li>次のチェックを<strong>すべて外す</strong>：「PDF/A準拠」／「ドキュメントのプロパティ」／「アクセシビリティ用のドキュメント構造タグ」／「フォントの埋め込みが不可能な場合はテキストをビットマップに変換する」</li>
+  <li>保存し、できたPDFのプロパティで<strong>作成者等が消えていることを確認</strong></li>
+</ol>
+<p>Word/Excelファイル自体（記録外で提出する場合）のプロパティ削除は、ファイルを右クリック →「プロパティ」→「詳細」タブ →「プロパティや個人情報を削除」→「可能なすべてのプロパティを削除してコピーを作成」で行えます。</p>
+
+<h3>9.2 用紙サイズの修正（A4/A3以外はエラーになる）</h3>
+<ul>
+  <li>Word/Excel：「レイアウト」タブ →「サイズ」でA4またはA3に変更してからPDF化。</li>
+  <li>既存PDF：「印刷」→ プリンターに「<strong>Microsoft Print to PDF</strong>」を選択 → プロパティの詳細設定で用紙サイズをA4/A3に指定して出力し直す。</li>
+  <li>スキャナーで書面をPDF化する場合も、出力サイズがA4/A3になっているか確認する。</li>
+</ul>
+<div class="tip"><span class="box-title">✎ パスワード付きPDFの解除も同じ方法</span>
+パスワード保護されたPDFはアップロードできません。パスワードを知っている場合は、開いた状態で「Microsoft Print to PDF」で出力し直せば保護のない別ファイルが作れます。</div>
+
+<h3>9.3 PDFの向き</h3>
+<ul>
+  <li>縦置きの書面は縦向き、横置きの書面は横向きのPDFでアップロードすることを推奨（タイムスタンプが適切な位置に付されるため。公式マニュアル別紙4）。</li>
+  <li>横向き → 縦向きの変更も「Microsoft Print to PDF」での出力し直しで可能。</li>
+</ul>
+
+<h3>9.4 Acrobat Reader の印刷・閲覧設定（最初に1回だけ）</h3>
+<ul>
+  <li><strong>設定1</strong>：印刷ウィンドウの「ページサイズ処理」で「<strong>PDFのページサイズに合わせて用紙を選択</strong>」にチェック。A3/A4混在の記録が原寸で印刷されるようになる。一度設定すれば保存される。</li>
+  <li><strong>設定2</strong>：PDFの既定アプリをAcrobat Readerにし、ブラウザのダウンロード通知で「常にシステムビューアーで開く」にチェック。ダウンロードしたPDFが自動で開くようになる。</li>
+</ul>
+
+<!-- ============ 第10章 ============ -->
+<h2 id="ch10"><span class="chapnum">第10章</span>トラブルシューティング <span class="ref">公式マニュアル 別紙2</span></h2>
+<table>
+  <thead><tr><th style="width:38%">症状・エラー</th><th>原因と対処</th></tr></thead>
+  <tbody>
+    <tr><td>サインイン画面が表示されない</td><td>サインイン画面は別ウィンドウで開くため、ブラウザの<strong>ポップアップブロック</strong>を確認。推奨ブラウザ（Edge/Chrome）か確認</td></tr>
+    <tr><td>確認コードのSMSが届かない</td><td><strong>海外発信のSMS受信拒否設定</strong>を解除。コードの有効期限は180秒なので再発行も試す。電話認証（自動音声）への切替も可</td></tr>
+    <tr><td>「ファイルの形式が正しくありません」</td><td>対応形式（記録：PDF/MP3/MP4/JPEG/PNG）か確認。Word/Excelは記録には出せない → PDFに変換（第9章）</td></tr>
+    <tr><td>「ファイルの用紙サイズが正しくありません」</td><td>PDFがA4/A3以外。Microsoft Print to PDF でサイズを直す（第9章）</td></tr>
+    <tr><td>「ファイルにパスワードが付されています」</td><td>パスワードを解除して再アップロード（第9章）</td></tr>
+    <tr><td>「許容量（総ファイル容量）を超えたため、追加できません」</td><td>1回200MBの上限超過。複数回に分けてアップロード</td></tr>
+    <tr><td>「ファイル名が重複しているため、提出できません」</td><td>同名ファイルは同時に出せない。名前を変えるか、タイミングを分ける</td></tr>
+    <tr><td>「ファイル名を、100文字以下に設定してください」</td><td>拡張子込み100文字以内に短縮</td></tr>
+    <tr><td>「{○○}に入力禁止文字が含まれています」</td><td>外字・特殊文字（髙・﨑等）をJIS X 0213の代替文字に置換</td></tr>
+    <tr><td>「一定時間操作がなかったため、サインアウトしました」</td><td>タイムアウト。再サインイン。<strong>新規申立てフォームの未保存分は消えている</strong>ので注意</td></tr>
+    <tr><td>「本事件は係属中でないため、操作できません」</td><td>終局した事件は操作不可。必要があれば書記官に連絡</td></tr>
+    <tr><td>「該当する招待キーがありません」「使用できません」</td><td>入力ミスを確認。誤りがなければ係属部へ問い合わせ（有効期限切れの可能性）</td></tr>
+    <tr><td>「サーバ処理が失敗しました（エラー）」等</td><td>再操作しても解決しない場合は、チャットボット「お問合せ窓口を知りたい」→問い合わせフォームへ</td></tr>
+    <tr><td>ウイルス検知メールが届いた</td><td>同時に提出した<strong>全ファイルが削除</strong>されている。安全を確認して再提出</td></tr>
+    <tr><td>ZIPを解凍したらファイル名が文字化け</td><td>Windows標準機能（右クリック→すべて展開）で解凍し直す</td></tr>
+    <tr><td>誤ったファイルを提出してしまった</td><td>自分では削除不可。<strong>直ちに担当書記官へ電話</strong>して削除を依頼</td></tr>
+    <tr><td>裁判所のシステム障害で期限に間に合わない</td><td>132条の11第3項により義務の例外。<strong>障害の証跡（スクリーンショット等）を保存</strong>し、裁判所に連絡のうえ書面提出等を協議</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 第11章 ============ -->
+<h2 id="ch11"><span class="chapnum">第11章</span>事務所運用の実務Tips</h2>
+
+<h3>11.1 体制づくり</h3>
+<ul>
+  <li><strong>mints専用メールアドレス</strong>（またはエイリアス）を用意し、通知メールの仕分けルールを整備する。通知は<strong>弁護士と補助者の双方に届く</strong>ため、二重チェック体制にできる。</li>
+  <li>補助者アカウントを設定し、アップロード・印刷等の定型作業を事務局に委ねる（操作はすべて弁護士名義になる点は事務局にも周知）。</li>
+  <li>係属事件がある間は、メール頼みにせず<strong>定期的にサインインして「重要なお知らせ」を確認</strong>する習慣を付ける（1週間みなし送達対策）。</li>
+</ul>
+
+<h3>11.2 依頼者との関係</h3>
+<div class="warn"><span class="box-title">⚠ 依頼者本人に mints アカウントを作らせない</span>
+代理人が就いている事件で依頼者本人もユーザ登録すると、<strong>依頼者が判決書を閲覧した時点で送達が成立し、そこから上訴期間が起算される</strong>など、送達・期限管理が事務所のコントロール外になります。記録の共有は、事務所でダウンロードしたデータを別途交付する方法によるのが安全です（夕陽ヶ丘法律事務所ブログ）。</div>
+
+<h3>11.3 提出時の注意</h3>
+<ul>
+  <li><strong>期限ぎりぎりの深夜提出は避ける</strong>。毎月最終土曜午前2時〜10時の定期メンテナンスのほか、障害リスクもある。アップロード後のウイルススキャンにも数分かかる。</li>
+  <li>相手方の書面を開くタイミングは相手に通知される（5.7）。<strong>戦略的に閲覧時期を考える場面があり得る</strong>一方、送達対象ファイルは放置しても1週間で効力が生じる。</li>
+  <li>書証の「写し」をデータ提出しただけでは民訴法上の「文書の提出」とならない問題が指摘されており、尋問期日での原本提示等は従来どおりの準備が必要（夕陽ヶ丘法律事務所ブログ・二次情報）。裁判体の訴訟指揮に従う。</li>
+  <li>補正依頼は mints 経由のこともあれば従来どおり電話のこともある（東弁LIBRA）。</li>
+</ul>
+
+<h3>11.4 チェックリスト（新法事件の受任時）</h3>
+<table class="compact">
+  <thead><tr><th style="width:6%">✓</th><th>確認事項</th></tr></thead>
+  <tbody>
+    <tr><td>□</td><td>新法事件か旧法事件か（提起日が令和8年5月21日以降か）を確認した</td></tr>
+    <tr><td>□</td><td>mintsアカウントの本人確認が「済」になっている（新規申立一覧等が押せる状態）</td></tr>
+    <tr><td>□</td><td>システム送達届出がONになっている（新規申立てフォームではOFFにしない）</td></tr>
+    <tr><td>□</td><td>通知メールの受信設定・仕分けを確認した（info@mints.courts.go.jp）</td></tr>
+    <tr><td>□</td><td>補助者の関連付けが最新になっている（離職者の解除を含む）</td></tr>
+    <tr><td>□</td><td>提出書面のPDFはA4/A3・パスワードなし・メタデータ削除済み</td></tr>
+    <tr><td>□</td><td>判決言渡し前後は mints の確認頻度を上げる体制をとった</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 第12章 ============ -->
+<h2 id="ch12"><span class="chapnum">第12章</span>根拠条文（全文）</h2>
+<p>いずれも民事訴訟法（平成八年法律第百九号）、令和8年5月21日施行の現行条文です（e-Gov法令検索より取得・逐語）。</p>
+
+<div class="law"><span class="box-title">民事訴訟法 第132条の10（電子情報処理組織による申立て等）</span>
+<blockquote>第百三十二条の十　民事訴訟に関する手続における申立てその他の申述（以下「申立て等」という。）のうち、当該申立て等に関するこの法律その他の法令の規定により書面等（書面、書類、文書、謄本、抄本、正本、副本、複本その他文字、図形等人の知覚によって認識することができる情報が記載された紙その他の有体物をいう。以下この章において同じ。）をもってするものとされているものであって、裁判所に対してするもの（当該裁判所の裁判長、受命裁判官、受託裁判官又は裁判所書記官に対してするものを含む。）については、当該法令の規定にかかわらず、最高裁判所規則で定めるところにより、最高裁判所規則で定める電子情報処理組織を使用して当該書面等に記載すべき事項をファイルに記録する方法により行うことができる。<br>
+２　前項の方法によりされた申立て等（以下この条において「電子情報処理組織を使用する申立て等」という。）については、当該申立て等を書面等をもってするものとして規定した申立て等に関する法令の規定に規定する書面等をもってされたものとみなして、当該法令その他の当該申立て等に関する法令の規定を適用する。<br>
+３　電子情報処理組織を使用する申立て等は、当該電子情報処理組織を使用する申立て等に係る事項がファイルに記録された時に、当該裁判所に到達したものとみなす。<br>
+４　第一項の場合において、当該申立て等に関する他の法令の規定により署名等（署名、記名、押印その他氏名又は名称を書面等に記載することをいう。以下この項において同じ。）をすることとされているものについては、当該申立て等をする者は、当該法令の規定にかかわらず、当該署名等に代えて、最高裁判所規則で定めるところにより、氏名又は名称を明らかにする措置を講じなければならない。<br>
+５　電子情報処理組織を使用する申立て等がされたときは、当該電子情報処理組織を使用する申立て等に係る送達は、当該電子情報処理組織を使用する申立て等に係る法令の規定にかかわらず、当該電子情報処理組織を使用する申立て等によりファイルに記録された事項に係る電磁的記録の送達によってする。<br>
+６　前項の方法により行われた電子情報処理組織を使用する申立て等に係る送達については、当該電子情報処理組織を使用する申立て等に関する法令の規定に規定する送達の方法により行われたものとみなして、当該送達に関する法令その他の当該電子情報処理組織を使用する申立て等に関する法令の規定を適用する。</blockquote>
+<span class="src">出典：<a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">e-Gov法令検索（民事訴訟法）</a></span></div>
+
+<div class="law"><span class="box-title">民事訴訟法 第132条の11（電子情報処理組織による申立て等の特例）＝義務化規定</span>
+<blockquote>第百三十二条の十一　次の各号に掲げる者は、それぞれ当該各号に定める事件の申立て等をするときは、前条第一項の方法により、これを行わなければならない。ただし、口頭ですることができる申立て等について、口頭でするときは、この限りでない。<br>
+一　訴訟代理人のうち委任を受けたもの（第五十四条第一項ただし書の許可を得て訴訟代理人となったものを除く。）　当該委任を受けた事件<br>
+二　国の利害に関係のある訴訟についての法務大臣の権限等に関する法律（昭和二十二年法律第百九十四号）第二条、第五条第一項、第六条第二項、第六条の二第四項若しくは第五項、第六条の三第四項若しくは第五項又は第七条第三項の規定による指定を受けた者　当該指定の対象となった事件<br>
+三　地方自治法（昭和二十二年法律第六十七号）第百五十三条第一項の規定による委任を受けた職員　当該委任を受けた事件<br>
+２　前項各号に掲げる者は、第百九条の二第一項ただし書の届出をしなければならない。<br>
+３　第一項の規定は、同項各号に掲げる者が裁判所の使用に係る電子計算機の故障その他その責めに帰することができない事由により、電子情報処理組織を使用する方法により申立て等を行うことができない場合には、適用しない。</blockquote>
+<span class="src">出典：<a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">e-Gov法令検索（民事訴訟法）</a></span></div>
+
+<div class="law"><span class="box-title">民事訴訟法 第109条の2（電子情報処理組織による送達）＝システム送達</span>
+<blockquote>第百九条の二　電磁的記録の送達は、前条の規定にかかわらず、最高裁判所規則で定めるところにより、送達すべき電磁的記録に記録されている事項につき次条第一項第一号の閲覧又は同項第二号の記録をすることができる措置をとるとともに、送達を受けるべき者に対し、最高裁判所規則で定める電子情報処理組織を使用して当該措置がとられた旨の通知を発する方法によりすることができる。ただし、当該送達を受けるべき者が当該方法により送達を受ける旨の最高裁判所規則で定める方式による届出をしている場合に限る。<br>
+２　前項ただし書の届出をする場合には、最高裁判所規則で定めるところにより、同項本文の通知を受ける連絡先を受訴裁判所に届け出なければならない。この場合においては、送達受取人をも届け出ることができる。<br>
+３　第一項本文の通知は、前項の規定により届け出られた連絡先に宛てて発するものとする。</blockquote>
+<span class="src">出典：<a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">e-Gov法令検索（民事訴訟法）</a></span></div>
+
+<div class="law"><span class="box-title">民事訴訟法 第109条の3（電子情報処理組織による送達の効力発生の時期）</span>
+<blockquote>第百九条の三　前条第一項の規定による送達は、次に掲げる時のいずれか早い時に、その効力を生ずる。<br>
+一　送達を受けるべき者が送達すべき電磁的記録に記録されている事項を最高裁判所規則で定める方法により表示をしたものの閲覧をした時<br>
+二　送達を受けるべき者が送達すべき電磁的記録に記録されている事項についてその使用に係る電子計算機に備えられたファイルへの記録をした時<br>
+三　前条第一項本文の通知が発せられた日から一週間を経過した時<br>
+２　送達を受けるべき者がその責めに帰することができない事由によって前項第一号の閲覧又は同項第二号の記録をすることができない期間は、同項第三号の期間に算入しない。</blockquote>
+<span class="src">出典：<a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">e-Gov法令検索（民事訴訟法）</a></span></div>
+
+<div class="law"><span class="box-title">民事訴訟法 第109条の4（電子情報処理組織による送達を受ける旨の届出をしなければならない者に関する特例）</span>
+<blockquote>第百九条の四　第百九条の二第一項ただし書の規定にかかわらず、第百三十二条の十一第一項各号に掲げる者に対する第百九条の二第一項の規定による送達は、その者が同項ただし書の届出をしていない場合であってもすることができる。この場合においては、同項本文の通知を発することを要しない。<br>
+２　前項の規定により送達をする場合における前条の規定の適用については、同条第一項第三号中「通知が発せられた」とあるのは、「措置がとられた」とする。</blockquote>
+<span class="src">出典：<a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">e-Gov法令検索（民事訴訟法）</a></span></div>
+
+<!-- ============ 第13章 ============ -->
+<h2 id="ch13"><span class="chapnum">第13章</span>参考リンク集</h2>
+<h3>公式（一次情報）</h3>
+<ul>
+  <li><a href="https://www.mints.courts.go.jp/user/" target="_blank" rel="noopener">mints トップ（当事者用）</a></li>
+  <li><a href="https://www.mints.courts.go.jp/user/user_manual.pdf" target="_blank" rel="noopener">操作マニュアル（当事者ユーザ編・PDF）</a> ― 本マニュアルのベース資料。画面の図解はこちら</li>
+  <li><a href="https://www.mints.courts.go.jp/user/user_faq.pdf" target="_blank" rel="noopener">mints 公式FAQ（PDF）</a></li>
+  <li><a href="https://www.courts.go.jp/saiban/minjidejitaruka/mints_gaiyou/index.html" target="_blank" rel="noopener">裁判所「mintsについて」</a></li>
+  <li><a href="https://www.courts.go.jp/saiban/minjidejitaruka/minso_gaiyou/index.html" target="_blank" rel="noopener">裁判所「改正民訴法等で変わる民事訴訟手続の概要」</a></li>
+  <li><a href="https://www.courts.go.jp/saiban/minjidejitaruka/index.html" target="_blank" rel="noopener">裁判所「民事裁判手続のデジタル化」</a></li>
+  <li><a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">民事訴訟法（e-Gov法令検索）</a></li>
+  <li><a href="https://www.moj.go.jp/MINJI/minji07_00316.html" target="_blank" rel="noopener">法務省 改正法の概要</a></li>
+  <li><a href="https://www.pay-easy.jp/" target="_blank" rel="noopener">ペイジー公式サイト</a></li>
+</ul>
+<h3>弁護士会・実務解説（二次情報）</h3>
+<ul>
+  <li><a href="https://www.toben.or.jp/message/libra/pdf/2026_03/P02-17.pdf" target="_blank" rel="noopener">東京弁護士会 LIBRA 2026年3月号特集「いよいよ民事裁判が電子化 ― mints利用義務化を前に ―」</a> ― 東京地裁担当者執筆。最も詳しい実務解説</li>
+  <li><a href="https://niben.jp/niben/pdf/22-33_tokushu_2025NF12.pdf" target="_blank" rel="noopener">第二東京弁護士会 NIBEN Frontier 2025年12月号「フェーズ3で訴え提起はこうなる」</a></li>
+  <li><a href="https://yuhigaoka-law.com/?s=mints" target="_blank" rel="noopener">夕陽ヶ丘法律事務所ブログ mints関連記事一覧</a> ― Q&A形式の細かな実務Tips多数（約29記事）</li>
+</ul>
+<div class="tip"><span class="box-title">✎ 本マニュアルの情報の性質</span>
+操作手順・システム仕様は公式マニュアル2.2版（2026年5月16日改訂）に基づき、条文は e-Gov の現行法から逐語引用しています。弁護士会誌・法律事務所ブログ由来の実務Tipsは二次情報であり、出典を本文中に明記しています。システムは随時更新されるため、重要な操作の前には公式マニュアル・FAQの最新版を確認してください。</div>
+
+<p style="margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem;">
+mints 実務マニュアル（事務所内利用）／作成日 2026年6月10日／ベース：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版
+</p>
+
+</main>
+</div>
+
+<button id="pagetop" title="ページ上部へ" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// モバイル用 目次ドロワー
+const toc=document.getElementById('toc');
+const menubtn=document.getElementById('menubtn');
+const overlay=document.getElementById('tocoverlay');
+function setToc(open){
+  toc.classList.toggle('open',open);
+  overlay.classList.toggle('show',open);
+  menubtn.setAttribute('aria-expanded',open?'true':'false');
+  menubtn.textContent=open?'✕':'☰';
+}
+menubtn.addEventListener('click',()=>setToc(!toc.classList.contains('open')));
+overlay.addEventListener('click',()=>setToc(false));
+toc.addEventListener('click',e=>{if(e.target.closest('a'))setToc(false);});
+// ページトップボタン
+const btn=document.getElementById('pagetop');
+addEventListener('scroll',()=>{btn.classList.toggle('show',scrollY>600);},{passive:true});
+// 目次の現在地ハイライト
+const links=[...document.querySelectorAll('nav#toc a')];
+const targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('current'));
+      const l=links.find(l=>l.getAttribute('href')==='#'+e.target.id);
+      if(l){l.classList.add('current');}
+    }
+  });
+},{rootMargin:'-10% 0px -70% 0px'});
+targets.forEach(t=>obs.observe(t));
+</script>
+</body>
+</html>
