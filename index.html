@@ -214,7 +214,7 @@
   <div class="meta">
     ベース資料：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版（改訂 2026.5.16）<br>
     補足資料：裁判所ウェブサイト・mints公式FAQ・東京弁護士会LIBRA 2026年3月号・夕陽ヶ丘法律事務所ブログ ほか（→<a href="#ch13" style="color:#ffd98a;">第13章</a>）<br>
-    本マニュアル作成日：2026年6月10日　※画面の図解は公式マニュアル（PDF）の該当ページを参照してください。
+    本マニュアル作成日：2026年6月10日／最終確認日：2026年7月1日（公式操作マニュアルは<strong>2.2版・2026.05.16改訂</strong>のままで新版なし・条文も施行後変更なしを一次資料で確認）　※画面の図解は公式マニュアル（PDF）の該当ページを参照してください。
   </div>
 </header>
 
@@ -437,6 +437,7 @@
 <li><strong>1書証1ファイル</strong>が原則。枝番のある書証は「甲001_1〜3」のように1ファイルにまとめてよい。</li>
 <li>書証データの<strong>右上に証拠番号を記載</strong>しておく。</li>
 <li>提出するPDFには裁判所側でタイムスタンプが付され、これが受付印の代わりになる。</li>
+<li>提出するのは「写しに代わる画像情報（PDF）」だが、<strong>取調べには期日に原本の持参が必要</strong>（→<a href="#ch11-5">11.5</a>）。</li>
 </ul></div>
 
 <h3 id="ch5-3">5.3 ダウンロード <span class="ref">公式マニュアル p.70〜73</span></h3>
@@ -638,7 +639,7 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
 <ul>
   <li><strong>期限ぎりぎりの深夜提出は避ける</strong>。毎月最終土曜午前2時〜10時の定期メンテナンスのほか、障害リスクもある。アップロード後のウイルススキャンにも数分かかる。</li>
   <li>相手方の書面を開くタイミングは相手に通知される（5.7）。<strong>戦略的に閲覧時期を考える場面があり得る</strong>一方、送達対象ファイルは放置しても1週間で効力が生じる。</li>
-  <li>書証の「写し」をデータ提出しただけでは民訴法上の「文書の提出」とならない問題が指摘されており、尋問期日での原本提示等は従来どおりの準備が必要（夕陽ヶ丘法律事務所ブログ・二次情報）。裁判体の訴訟指揮に従う。</li>
+  <li>書証はmintsに「写しに代わる画像情報（PDF）」を提出するが、<strong>取調べには期日に原本の持参が必要</strong>で、契約書等は原本の書証申出が望ましい（改正民訴規則137条・民訴規則143条。詳細と根拠は<a href="#ch11-5">11.5</a>）。裁判体の訴訟指揮に従う。</li>
   <li>補正依頼は mints 経由のこともあれば従来どおり電話のこともある（東弁LIBRA）。</li>
 </ul>
 
@@ -655,6 +656,21 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
     <tr><td>□</td><td>判決言渡し前後は mints の確認頻度を上げる体制をとった</td></tr>
   </tbody>
 </table>
+
+<h3 id="ch11-5">11.5 書証・証拠提出の規律（改正民訴規則） <span class="ref">フェーズ3準備の手引 R8.6.19</span></h3>
+<p>新法事件では、証拠の提出方法についても改正民訴規則（民事訴訟規則等の一部を改正する規則＝令和8年最高裁判所規則第7号による改正後のもの）で規律が整理されました。<mark>「mintsにPDFを出す」ことと「書証の取調べ」は別</mark>である点が最重要です。</p>
+<div class="law"><span class="box-title">📖 書証の写しに代わる画像情報の提出／原本の持参</span>
+<blockquote>訴訟代理人は、文書を提出して書証の申出をする時までに、……書証の写しに代わる画像情報（PDF形式）をmintsにアップロードして提出しなければならない（改正民訴規則137条）。</blockquote>
+<blockquote>書証の申出は、文書を提出することによってしなければならず（民訴法219条）、文書の提出は、原本、正本又は認証のある謄本でしなければならないという規律に変わりはないことから（民訴規則143条）、書証を取り調べるためには、期日に書証の原本を持参する必要がある。</blockquote>
+<span class="src">出典：最高裁判所事務総局民事局「民事訴訟フェーズ3に向けた準備の手引」R8.6.19版（一次情報）</span></div>
+<ul>
+  <li><strong>提出はPDF、取調べは原本</strong>：mintsには「写しに代わる画像情報（PDF）」をアップロードするが、これで取調べが完結するわけではなく、<strong>期日には書証の原本を持参</strong>する。契約書等、原本の存在・成立の真正が争われ得る類型では特に、<strong>原本による書証申出が望ましい</strong>。</li>
+  <li><strong>電磁的記録としての証拠調べ</strong>：紙の証拠をPDF化し「電磁的記録に記録された情報の内容に係る証拠調べ」（改正法で新設）として申し出ることも可能。ただし相手方が真の原本の存在・成立を争い実質的証拠力に疑義が生じると、裁判所が改めて<strong>真の原本の書証申出（新たな証拠番号を付す）</strong>を訴訟指揮することがあり、合理的理由なく原本申出をしないと実質的証拠力が慎重に検討される。</li>
+  <li><strong>証拠説明書</strong>：<strong>電子証拠説明書と兼ねて</strong>作成し電子提出する。書証と電磁的記録の各証拠番号は<strong>通番</strong>で付す。</li>
+  <li><strong>アップロード時期</strong>：証拠は新規申立て時ではなく、<strong>裁判所が事件を立件した後</strong>に事件情報画面からアップロードする（→<a href="#ch6">第6章</a>のTips）。</li>
+</ul>
+<div class="tip"><span class="box-title">✎ ウェブ尋問・書証の提示（同手引）</span>
+ウェブ尋問の要件が見直され、証人等の<strong>出頭場所が裁判所以外にも拡大</strong>されました。尋問で文書等を証人に示す場合は、<strong>紙媒体を提示する方法</strong>のほか、データを画面共有等で提示する方法によります。運用は裁判体の訴訟指揮に従ってください。</div>
 
 <!-- ============ 第12章 ============ -->
 <h2 id="ch12"><span class="chapnum">第12章</span>根拠条文（全文）</h2>
@@ -706,6 +722,8 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
   <li><a href="https://www.mints.courts.go.jp/user/user_faq.pdf" target="_blank" rel="noopener">mints 公式FAQ（PDF）</a></li>
   <li><a href="https://www.courts.go.jp/saiban/minjidejitaruka/mints_gaiyou/index.html" target="_blank" rel="noopener">裁判所「mintsについて」</a></li>
   <li><a href="https://www.courts.go.jp/saiban/minjidejitaruka/minso_gaiyou/index.html" target="_blank" rel="noopener">裁判所「改正民訴法等で変わる民事訴訟手続の概要」</a></li>
+  <li><a href="https://www.courts.go.jp/assets/071031_f3jyunbi_tebiki.pdf" target="_blank" rel="noopener">最高裁「民事訴訟フェーズ3に向けた準備の手引」R8.6.19版（PDF）</a> ― <strong>証拠提出の規律</strong>（書証の写しに代わる画像情報・原本持参）／法廷機器／ウェブ尋問を図解。本改訂で参照</li>
+  <li><a href="https://www.courts.go.jp/assets/mints_hajigori.pdf" target="_blank" rel="noopener">「初めてmintsをご利用する方へ」（PDF・2026.4.24改訂）</a></li>
   <li><a href="https://www.courts.go.jp/saiban/minjidejitaruka/index.html" target="_blank" rel="noopener">裁判所「民事裁判手続のデジタル化」</a></li>
   <li><a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">民事訴訟法（e-Gov法令検索）</a></li>
   <li><a href="https://www.moj.go.jp/MINJI/minji07_00316.html" target="_blank" rel="noopener">法務省 改正法の概要</a></li>
@@ -721,7 +739,7 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
 操作手順・システム仕様は公式マニュアル2.2版（2026年5月16日改訂）に基づき、条文は e-Gov の現行法から逐語引用しています。弁護士会誌・法律事務所ブログ由来の実務Tipsは二次情報であり、出典を本文中に明記しています。システムは随時更新されるため、重要な操作の前には公式マニュアル・FAQの最新版を確認してください。</div>
 
 <p style="margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem;">
-mints 実務マニュアル（事務所内利用）／作成日 2026年6月10日／ベース：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版
+mints 実務マニュアル（事務所内利用）／作成日 2026年6月10日・最終確認日 2026年7月1日／ベース：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版（2026.05.16改訂・現行最新）
 </p>
 
 </main>
