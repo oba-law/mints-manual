@@ -29,12 +29,12 @@
     font-size:16px; line-height:1.9;
   }
   /* ===== レイアウト ===== */
-  .wrap{display:flex; max-width:1280px; margin:0 auto;}
+  .wrap{max-width:none; margin:0;}
   nav#toc{
-    width:300px; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto;
+    width:300px; position:fixed; left:0; top:0; height:100vh; overflow-y:auto;
     background:var(--navy); color:#dbe3f0; padding:1.2rem 0 3rem;
   }
-  main{flex:1; min-width:0; padding:0 2.2rem 5rem; background:var(--paper);}
+  main{margin-left:300px; max-width:1040px; min-width:0; padding:0 2.2rem 5rem; background:var(--paper);}
   @media(max-width:900px){
     .wrap{display:block;}
     body{font-size:15px;}
@@ -48,7 +48,7 @@
     nav#toc.open{transform:translateX(0);}
     nav#toc a{padding:.55rem 1.2rem; font-size:.92rem;}
     nav#toc a.lv2{padding-left:2rem; font-size:.85rem;}
-    main{padding:0 1rem 4rem;}
+    main{margin-left:0; max-width:none; padding:0 1rem 4rem;}
   }
   /* ハンバーガーボタン（モバイルのみ） */
   #menubtn{
@@ -158,7 +158,7 @@
   @media print{
     nav#toc,#pagetop{display:none;}
     body{background:#fff; font-size:11pt;}
-    main{padding:0;}
+    main{margin-left:0; max-width:none; padding:0;}
     header.hero{margin:0; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
     h2{page-break-after:avoid;}
     .box,table{page-break-inside:avoid;}
