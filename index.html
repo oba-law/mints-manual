@@ -195,13 +195,17 @@
   <a href="#ch5-6" class="lv2">5.6 記録外ファイル</a>
   <a href="#ch5-7" class="lv2">5.7 アクセス記録は相手に通知される</a>
   <a href="#ch6">第6章 新規申立て（オンライン提訴）</a>
+  <a href="#ch6-1" class="lv2">6.1 全体の流れ</a>
+  <a href="#ch6-2" class="lv2">6.2 入力ルールの要点</a>
+  <a href="#ch6-3" class="lv2">6.3 提出後の流れ（立件・Teams・期日）</a>
   <a href="#ch7">第7章 手数料納付（ペイジー）</a>
   <a href="#ch8">第8章 招待キー・事件アクセスキー</a>
   <a href="#ch9">第9章 PDF作成・ファイル変換のコツ</a>
   <a href="#ch10">第10章 トラブルシューティング</a>
   <a href="#ch11">第11章 事務所運用の実務Tips</a>
   <a href="#ch12">第12章 根拠条文（全文）</a>
-  <a href="#ch13">第13章 参考リンク集</a>
+  <a href="#ch13">第13章 書式・様式ダウンロード集</a>
+  <a href="#ch14">第14章 参考リンク集</a>
 </nav>
 
 <!-- ============ 本文 ============ -->
@@ -214,7 +218,7 @@
   <div class="meta">
     ベース資料：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版（改訂 2026.5.16）<br>
     補足資料：裁判所ウェブサイト・mints公式FAQ・東京弁護士会LIBRA 2026年3月号・夕陽ヶ丘法律事務所ブログ ほか（→<a href="#ch13" style="color:#ffd98a;">第13章</a>）<br>
-    本マニュアル作成日：2026年6月10日／最終確認日：2026年7月1日（公式操作マニュアルは<strong>2.2版・2026.05.16改訂</strong>のままで新版なし・条文も施行後変更なしを一次資料で確認）　※画面の図解は公式マニュアル（PDF）の該当ページを参照してください。
+    本マニュアル作成日：2026年6月10日／最終確認日：2026年7月8日（公式操作マニュアルは<strong>2.2版・2026.05.16改訂</strong>のままで新版なし・条文も施行後変更なしを一次資料で確認。裁判所公式の<a href="#ch13" style="color:#ffd98a;">書式・様式ダウンロード集（第13章）</a>を新設し、提出後の流れ（<a href="#ch6-3" style="color:#ffd98a;">6.3</a>）を追記。掲載リンクは同日に生存確認）　※画面の図解は公式マニュアル（PDF）の該当ページを参照してください。
   </div>
 </header>
 
@@ -438,6 +442,7 @@
 <li>書証データの<strong>右上に証拠番号を記載</strong>しておく。</li>
 <li>提出するPDFには裁判所側でタイムスタンプが付され、これが受付印の代わりになる。</li>
 <li>提出するのは「写しに代わる画像情報（PDF）」だが、<strong>取調べには期日に原本の持参が必要</strong>（→<a href="#ch11-5">11.5</a>）。</li>
+<li>証拠説明書は公式の<a href="https://www.courts.go.jp/assets/shouko_setsumeisho_f3.xlsx" target="_blank" rel="noopener">【新法適用事件用】証拠説明書（Excel）</a>を用いる（書証＝甲乙号証と電磁的記録の証拠説明書を兼ね、証拠番号は通番で付す）。書き方は<a href="https://www.courts.go.jp/assets/shouko_setsumeisho_kisaiyouryou.pdf" target="_blank" rel="noopener">証拠説明書 記載要領（PDF）</a>参照。→ 第13章<a href="#ch13">書式集</a></li>
 </ul></div>
 
 <h3 id="ch5-3">5.3 ダウンロード <span class="ref">公式マニュアル p.70〜73</span></h3>
@@ -484,18 +489,18 @@
 
 <p>新法事件の訴え提起・控訴・上告・支払督促等は、サイドバー「新規申立一覧」→「新規作成」のフォームから行います。</p>
 
-<h3>6.1 全体の流れ</h3>
+<h3 id="ch6-1">6.1 全体の流れ</h3>
 <ol class="steps">
   <li><strong>入力者肩書・申立種別を選択</strong>（訴え提起／控訴／上告・上告受理／支払督促／その他）</li>
-  <li><strong>当事者・代理人情報を入力</strong>（フォーム入力は合計10人まで。超える場合はCSV提出が必須）。「入力者の情報呼出」ボタンでアカウント登録情報を自動転記できる</li>
+  <li><strong>当事者・代理人情報を入力</strong>（フォーム入力は合計10人まで。超える場合はCSV提出が必須。公式の<a href="https://www.courts.go.jp/assets/csv_tool.xlsm" target="_blank" rel="noopener">当事者情報CSVファイル作成ツール</a>で作成しアップロードする→<a href="#ch13">書式集</a>）。「入力者の情報呼出」ボタンでアカウント登録情報を自動転記できる</li>
   <li><strong>申立内容を入力</strong>：提出先裁判所・事件種別・事件名・被告の数・訴額・申立ての趣旨（400字以内）・申立ての理由（10,000字以内）</li>
   <li><strong>添付書類をアップロード</strong>：訴状本文のPDF・委任状・資格証明書等</li>
   <li><strong>参考事項を入力</strong>（訴え提起・控訴のとき表示。<strong>相手方には開示されない</strong>）</li>
   <li>「保存」で一時保存 →「プレビュー」「申立ダウンロード」で申立書の仕上がりを確認 →<strong>「提出」</strong></li>
-  <li>ステータスが「提出中」→「提出済」になり、<strong>受付番号・受理日</strong>が表示される。完了メールも届く。その後、裁判所による立件・事件への関連付けを待つ</li>
+  <li>ステータスが「提出中」→「提出済」になり、<strong>受付番号・受理日</strong>が表示される。完了メールも届く。<strong>ただしここで手続が終わるわけではない</strong>。この後、裁判所による立件（事件番号付与）→ 代理人の事件への関連付け → 追加書面の提出 → Teams登録 → 手数料納付 → 期日調整、という一連の流れが続く（→<a href="#ch6-3">6.3</a>）</li>
 </ol>
 
-<h3>6.2 入力ルールの要点</h3>
+<h3 id="ch6-2">6.2 入力ルールの要点</h3>
 <table>
   <thead><tr><th>項目</th><th>ルール</th></tr></thead>
   <tbody>
@@ -525,6 +530,32 @@
 <li>被告に代理人が付いていない場合、被告への訴状送達は原告代理人が提出する<strong>出力書面（訴状を印刷したもの）</strong>で行われる運用が多い（改正民訴規則58条1項参照）。裁判所からの指示に従って準備する。</li>
 <li>簡裁への同種大量申立て（債権回収等）には「簡裁用一括申立て」機能があり、当事者情報等をCSVで提出する。</li>
 </ul></div>
+
+<h3 id="ch6-3">6.3 提出後の流れ ― 立件・関連付け・Teams・第1回期日</h3>
+<p>訴状をmintsで「提出済」にしても、そこで手続が完結するわけではありません。<strong>実際には、受訴裁判所（担当書記官）からの案内（mintsの通知・電話・FAX等）に沿って、次の一連の作業が続きます</strong>。以下は当事務所が実際に受けた案内に基づく<strong>典型的な流れ</strong>です（<mark>具体的な提出物・順序・呼称は裁判所・事件・係属部により異なるため、必ず個別の案内を最優先してください</mark>）。</p>
+<ol class="steps">
+  <li><strong>裁判所が事件情報を作成</strong>：裁判所が訴状を確認して立件し、mints上に事件情報を作成する。作成されると<strong>通知メール</strong>が届く（提出から概ね<strong>1〜2時間</strong>で事件番号が付与された例あり・二次情報→<a href="#ch11-6">11.6</a>）。まずmintsでこの事件情報を確認する。</li>
+  <li><strong>代理人を事件情報に「関連付け」する届出をアップロード</strong>：立件された事件情報に代理人を紐付けるため、裁判所の指定に従い、関連付けの範囲に応じて次のいずれかをmintsにアップロードする。
+    <ul>
+      <li><strong>入力者の弁護士のみ</strong>を関連付ける場合 → <a href="https://www.courts.go.jp/assets/denshishiyou_todoke.docx" target="_blank" rel="noopener">電子情報処理組織の使用を担当する訴訟代理人の届出</a>（規則52条の13）</li>
+      <li><strong>共同代理人全員</strong>を関連付ける場合 → <strong>代理人全員</strong>の<a href="https://www.courts.go.jp/assets/shisutemu_todoke_dai.docx" target="_blank" rel="noopener">システム送達を受ける旨の届出</a>（民訴法109条の2・規則45条の3）</li>
+    </ul>
+  </li>
+  <li><strong>入力者（担当弁護士）自身の追加提出</strong>：あわせて、① 入力者の<a href="https://www.courts.go.jp/assets/shisutemu_todoke_dai.docx" target="_blank" rel="noopener">システム送達を受ける旨の届出</a>、② <a href="https://www.courts.go.jp/assets/shouko_setsumeisho_f3.xlsx" target="_blank" rel="noopener">証拠説明書</a>、③ <strong>甲号証（書証PDF）</strong> を事件情報画面からアップロードするよう求められる（証拠は<strong>立件後</strong>に出す＝<a href="#ch11-5">11.5</a>）。</li>
+  <li><strong>Teams（ウェブ会議）の登録</strong>：期日はMicrosoft Teamsのウェブ会議で行われるため、裁判所がTeamsのチームを作成し、指定アドレスへメール送信するよう案内される。メールには通常、<strong>① 登録するメールアドレス</strong>（Microsoftアカウントがあればそのアドレス）、<strong>② 民事訴訟手続でのTeams利用経験の有無</strong>、<strong>③ 第1回期日の出頭方法（リアル出頭／ウェブ出頭）</strong> を記載する。</li>
+  <li><strong>訴状審査 → 手数料納付依頼</strong>：訴状審査後、裁判所から手数料の納付依頼が届く。ペイジーで納付する（→<a href="#ch7">第7章</a>）。</li>
+  <li><strong>手数料納付後 → 期日調整</strong>：納付確認後、Teams上で第1回期日等の日程調整を行う。</li>
+  <li><strong>被告送達用の出力書面を郵送等で提出</strong>：被告に代理人が付いていない等の場合、被告への送達用に<strong>訴状等を印刷した出力書面</strong>を郵送等で裁判所に提出する（改正民訴規則58条1項参照）。</li>
+</ol>
+<div class="tip"><span class="box-title">✎ 押さえどころ</span>
+<ul>
+<li><strong>「提出済」＝完了ではない</strong>。立件通知・Teams招待・納付依頼・期日調整は<strong>チャネルが分かれる</strong>ため、mintsの通知メールとTeamsの双方をこまめに確認する。</li>
+<li>新規申立てフォームでシステム送達届出をONにしていても、<strong>裁判所が改めて書面（届出のdocx）のアップロードを求めることがある</strong>。案内された書式を出す。</li>
+<li>関連付けの範囲（担当弁護士のみ／代理人全員）で提出書式が変わる。<strong>共同受任なら早めに方針を決める</strong>。</li>
+<li>提出後に求められやすい書式は第13章の<a href="#ch13">書式・様式ダウンロード集</a>からまとめて入手できる（受任時にテンプレ化しておくと段取りが速い）。</li>
+</ul></div>
+<div class="warn"><span class="box-title">⚠ 出典と留意</span>
+提出後の具体的手順（関連付けの届出・Teams登録・出力書面の郵送等）は<strong>受訴裁判所からの個別案内</strong>に基づく実務であり、裁判所・事件・係属部によって運用が異なります。Teamsによるウェブ会議・期日調整が用いられること自体は公式資料・複数の実務解説でも確認できます（→<a href="#ch14">第14章</a>）。本節は一般化した流れであり、<strong>必ず担当書記官の案内を最優先</strong>してください。</div>
 
 <!-- ============ 第7章 ============ -->
 <h2 id="ch7"><span class="chapnum">第7章</span>手数料納付（ペイジー） <span class="ref">公式マニュアル p.56〜59</span></h2>
@@ -616,7 +647,7 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
     <tr><td>「サーバ処理が失敗しました（エラー）」等</td><td>再操作しても解決しない場合は、チャットボット「お問合せ窓口を知りたい」→問い合わせフォームへ</td></tr>
     <tr><td>ウイルス検知メールが届いた</td><td>同時に提出した<strong>全ファイルが削除</strong>されている。安全を確認して再提出</td></tr>
     <tr><td>ZIPを解凍したらファイル名が文字化け</td><td>Windows標準機能（右クリック→すべて展開）で解凍し直す</td></tr>
-    <tr><td>誤ったファイルを提出してしまった</td><td>自分では削除不可。<strong>直ちに担当書記官へ電話</strong>して削除を依頼</td></tr>
+    <tr><td>誤ったファイルを提出してしまった</td><td>自分では削除不可。<strong>直ちに担当書記官へ電話</strong>して削除を依頼。公式の<a href="https://www.courts.go.jp/assets/upload_taiou.pdf" target="_blank" rel="noopener">「誤アップロードした場合の対応について」（PDF）</a>も参照</td></tr>
     <tr><td>裁判所のシステム障害で期限に間に合わない</td><td>132条の11第3項により義務の例外。<strong>障害の証跡（スクリーンショット等）を保存</strong>し、裁判所に連絡のうえ書面提出等を協議</td></tr>
   </tbody>
 </table>
@@ -732,8 +763,93 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
 ２　前項の規定により送達をする場合における前条の規定の適用については、同条第一項第三号中「通知が発せられた」とあるのは、「措置がとられた」とする。</blockquote>
 <span class="src">出典：<a href="https://laws.e-gov.go.jp/law/408AC0000000109" target="_blank" rel="noopener">e-Gov法令検索（民事訴訟法）</a></span></div>
 
-<!-- ============ 第13章 ============ -->
-<h2 id="ch13"><span class="chapnum">第13章</span>参考リンク集</h2>
+<!-- ============ 第13章 書式集 ============ -->
+<h2 id="ch13"><span class="chapnum">第13章</span>書式・様式ダウンロード集（公式）</h2>
+<p>裁判所「<a href="https://www.courts.go.jp/saiban/minjidejitaruka/minso_shiryou/index.html" target="_blank" rel="noopener">民事裁判手続のデジタル化・参考資料ページ</a>」に掲載された<strong>フェーズ3の書式・様式・参考資料</strong>を用途別に整理しました（いずれも公式＝一次情報。<strong>2026年7月8日にリンク生存を確認</strong>）。書式＝Word/Excel、記載例・資料＝PDFです。<mark>書式は改訂されることがある</mark>ため、提出前に上記ページで最新版・更新日を確認してください。</p>
+
+<h3 id="ch13-1">13.1 システム送達・事件への関連付け関係</h3>
+<table>
+  <thead><tr><th>書式名</th><th>形式</th><th>用途・根拠</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td><strong>システム送達を受ける旨の届出</strong>（訴訟代理人用）</td><td>Word</td><td>代理人がシステム送達を受ける旨の届出。民訴法109条の2・規則45条の3（R8.2.27更新：共同受任代理人の留意事項追加）。立件後に提出を求められる代表的書式（→<a href="#ch6-3">6.3</a>）</td><td><a href="https://www.courts.go.jp/assets/shisutemu_todoke_dai.docx" target="_blank" rel="noopener">docx</a></td></tr>
+    <tr><td><strong>システム送達を受ける旨の包括届出</strong></td><td>Word</td><td>すべての民訴事件等について包括的にシステム送達を受ける旨の届出。民訴法109条の2・規則45条の3</td><td><a href="https://www.courts.go.jp/assets/houkatu_todoke.docx" target="_blank" rel="noopener">docx</a></td></tr>
+    <tr><td><strong>電子情報処理組織の使用を担当する訴訟代理人の届出</strong></td><td>Word</td><td>複数代理人のうちmintsの使用（申立て・閲覧・送達受領）を担当する代理人を定めた場合の届出。規則52条の13（R8.6.19更新：入力者が送達届出を兼ねる場合の記載追加）</td><td><a href="https://www.courts.go.jp/assets/denshishiyou_todoke.docx" target="_blank" rel="noopener">docx</a></td></tr>
+    <tr><td>送達場所等の届出・システム送達を受ける旨の届出・受取人の届出（<strong>本人訴訟用</strong>）</td><td>Word</td><td>本人で裁判を行う方が送達先を届け出るとともにシステム送達を利用する書式。民訴法104条・109条の2・規則45条の3</td><td><a href="https://www.courts.go.jp/assets/shisutemu_todoke_hon.docx" target="_blank" rel="noopener">docx</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-2">13.2 申立て・当事者情報</h3>
+<table>
+  <thead><tr><th>書式名</th><th>形式</th><th>用途・根拠</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td><strong>当事者情報CSVファイル作成ツール</strong></td><td>Excel(マクロ)</td><td>新規申立てフォームの当事者・代理人が<strong>10名超</strong>のときにCSVを作成しアップロードするツール（R8.6.16更新：法人番号欄追加）。<a href="https://youtu.be/9zXi4H813u8" target="_blank" rel="noopener">作成・提出方法の動画</a></td><td><a href="https://www.courts.go.jp/assets/csv_tool.xlsm" target="_blank" rel="noopener">xlsm</a></td></tr>
+    <tr><td><strong>共同申立書</strong></td><td>Word</td><td>複数の原告・被告が共同で電子申立て・提出を行う意思を裁判所に示す書式。規則52条の9・52条の11</td><td><a href="https://www.courts.go.jp/assets/kyoudoumoushitate.docx" target="_blank" rel="noopener">docx</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-3">13.3 証拠</h3>
+<table>
+  <thead><tr><th>書式名</th><th>形式</th><th>用途・根拠</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td><strong>【新法適用事件用】証拠説明書</strong></td><td>Excel</td><td>書証の証拠説明書と電磁的記録の証拠調べの証拠説明書を兼ねる（証拠番号は通番）。規則137条・149条の2（R8.3.27更新）。立件後に提出を求められる代表的書式（→<a href="#ch6-3">6.3</a>・<a href="#ch11-5">11.5</a>）</td><td><a href="https://www.courts.go.jp/assets/shouko_setsumeisho_f3.xlsx" target="_blank" rel="noopener">xlsx</a></td></tr>
+    <tr><td>証拠説明書 記載要領</td><td>PDF</td><td>上記証拠説明書の記載方法の解説</td><td><a href="https://www.courts.go.jp/assets/shouko_setsumeisho_kisaiyouryou.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-4">13.4 記録の閲覧・複写／閲覧等制限</h3>
+<table>
+  <thead><tr><th>書式名</th><th>形式</th><th>用途・根拠</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td><strong>民事事件記録等 閲覧・複写・謄写・複製申請書</strong></td><td>Excel</td><td><strong>R8.5.21以降に提起</strong>された訴訟事件の記録の閲覧等の申請。民訴法91条の2・規則33条の3等（<a href="https://www.courts.go.jp/assets/202605minjietsuranshinseisho_kisairei.pdf" target="_blank" rel="noopener">記載例PDF</a>）</td><td><a href="https://www.courts.go.jp/assets/202605minjietsuranshinseisho.xlsx" target="_blank" rel="noopener">xlsx</a></td></tr>
+    <tr><td>閲覧等制限申立書（主文＝一文形式）</td><td>Word</td><td>記録の一部について閲覧・複写できる者を当事者に限るよう求める申立て。民訴法92条</td><td><a href="https://www.courts.go.jp/assets/eturanmoushitate_1.docx" target="_blank" rel="noopener">docx</a></td></tr>
+    <tr><td>閲覧等制限申立書（主文＝箇条書き形式）</td><td>Word</td><td>同上（箇条書き形式）。民訴法92条</td><td><a href="https://www.courts.go.jp/assets/eturanmoushitate_2.docx" target="_blank" rel="noopener">docx</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-5">13.5 本人訴訟のサポータ（第三者入力支援）</h3>
+<table>
+  <thead><tr><th>書式名</th><th>形式</th><th>用途・根拠</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td>事実行為の委任状・システム送達届出・受取人の届出・送達場所等の届出・入力依頼書面（一式）</td><td>Word</td><td>本人が第三者（サポータ）に入力を依頼する場合の一式。民訴法104条・109条の2・規則45条の3・52条の11</td><td><a href="https://www.courts.go.jp/assets/jijitu_todoke.docx" target="_blank" rel="noopener">docx</a></td></tr>
+    <tr><td>入力依頼書面</td><td>Word</td><td>サポータ利用時に、どの書類の提出を依頼したかを届け出る書式。規則52条の11</td><td><a href="https://www.courts.go.jp/assets/nyuuryokuirai.docx" target="_blank" rel="noopener">docx</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-6">13.6 民事執行（フェーズ3後の債務名義）</h3>
+<table>
+  <thead><tr><th>書式・資料名</th><th>形式</th><th>用途・根拠</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td><strong>執行文付与申請書</strong></td><td>Word</td><td>改正民事執行法の全面施行までの間、電子判決書等への執行文付与の申請に使用。民執法26条等（<a href="https://www.courts.go.jp/assets/202605tokureishikkoubunfuyoshinseisho_kisairei.pdf" target="_blank" rel="noopener">記載例PDF</a>）</td><td><a href="https://www.courts.go.jp/assets/202605tokureishikkoubunfuyoshinseisho.docx" target="_blank" rel="noopener">docx</a></td></tr>
+    <tr><td>申立書頭紙の例（債権執行）</td><td>PDF</td><td>電子的に作成された債務名義に基づく債権執行申立ての頭紙の例</td><td><a href="https://www.courts.go.jp/assets/saiken-denshi-mou.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td>事件特定情報提供書面の例</td><td>PDF</td><td>1つの債務名義により執行を申し立てる場合の事件特定情報提供書面の例</td><td><a href="https://www.courts.go.jp/assets/jiken-info-teikyo.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td>フェーズ3後の債務名義による登記申請の留意事項</td><td>PDF</td><td>電子化された債務名義による登記申請の留意点</td><td><a href="https://www.courts.go.jp/assets/f3_toukishinsei.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-7">13.7 参考資料（PDF）</h3>
+<table>
+  <thead><tr><th>資料名</th><th>用途</th><th>DL</th></tr></thead>
+  <tbody>
+    <tr><td>改正民事訴訟法・改正民事訴訟規則の概要</td><td>改正の全体像</td><td><a href="https://www.courts.go.jp/vc-files/courts/2025/minjidejitaruka/gaiyou.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td><strong>民事訴訟フェーズ3に向けた準備の手引（R8.6.19）</strong></td><td>mints手続・法廷機器・証拠提出の規律・ウェブ尋問を図解（→<a href="#ch11-5">11.5</a>）。<a href="https://www.courts.go.jp/assets/koshin_071031_f3jyunbi_tebiki.pdf" target="_blank" rel="noopener">変更点マーカー版</a></td><td><a href="https://www.courts.go.jp/assets/071031_f3jyunbi_tebiki.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td>誤アップロードした場合の対応について</td><td>誤ったファイルをアップロードした場合の対応（→<a href="#ch10">第10章</a>）</td><td><a href="https://www.courts.go.jp/assets/upload_taiou.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td>改正費用法の下における手数料額早見表</td><td>手数料計算の参考（→<a href="#ch7">第7章</a>）</td><td><a href="https://www.courts.go.jp/assets/tesuuryo_hayami.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td>国・地方公共団体等を当事者とする事件のmints入力時の留意事項</td><td>国・自治体を当事者とする新規申立て入力の留意点</td><td><a href="https://www.courts.go.jp/assets/kuni_mintsnyuuryoku_ryuuijikou.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+    <tr><td>courts Wi-Fi 利用規約</td><td>法廷等でPCを記録閲覧に用いる際のWi-Fi規約（利用には同意が必要）</td><td><a href="https://www.courts.go.jp/assets/courtsWi-Fi_kiyaku.pdf" target="_blank" rel="noopener">PDF</a></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ch13-8">13.8 操作説明動画（YouTube・公式）</h3>
+<ul>
+  <li><a href="https://www.youtube.com/playlist?list=PLS5EiOIcY5OcQ5EtZRtvEi5akfa4tH2Kw" target="_blank" rel="noopener">mints操作説明動画（再生リスト）</a></li>
+  <li>民事訴訟手続のデジタル化 説明動画：<a href="https://www.youtube.com/watch?v=JHKLLQyMI8I" target="_blank" rel="noopener">電子申立て編</a>／<a href="https://www.youtube.com/watch?v=kHk0Kt9G5GI" target="_blank" rel="noopener">手数料・費用の納付編</a>／<a href="https://www.youtube.com/watch?v=W8lOsWCgkvU" target="_blank" rel="noopener">送達編</a>／<a href="https://www.youtube.com/watch?v=O3KvDcTO32Q" target="_blank" rel="noopener">証拠提出編</a>（<a href="https://www.youtube.com/playlist?list=PLS5EiOIcY5OfU9ly4sOHbDxa00D4Klbo2" target="_blank" rel="noopener">再生リスト</a>）</li>
+  <li><a href="https://www.youtube.com/watch?v=mGVW4hdnVig" target="_blank" rel="noopener">フェーズ3 法廷等用機器 説明動画</a></li>
+</ul>
+<div class="tip"><span class="box-title">✎ 使い方のヒント</span>
+提出後に裁判所から求められやすいのは <strong>13.1 の届出書式</strong>（システム送達／担当代理人）と <strong>13.3 の証拠説明書</strong>です。受任時にこの2つをテンプレートとして事務所フォルダに用意しておくと、立件後の対応（→<a href="#ch6-3">6.3</a>）がスムーズです。</div>
+
+<!-- ============ 第14章 ============ -->
+<h2 id="ch14"><span class="chapnum">第14章</span>参考リンク集</h2>
 <h3>公式（一次情報）</h3>
 <ul>
   <li><a href="https://www.mints.courts.go.jp/user/" target="_blank" rel="noopener">mints トップ（当事者用）</a></li>
@@ -758,7 +874,7 @@ mints には納付番号を印刷する機能がないため、<strong>画面の
 操作手順・システム仕様は公式マニュアル2.2版（2026年5月16日改訂）に基づき、条文は e-Gov の現行法から逐語引用しています。弁護士会誌・法律事務所ブログ由来の実務Tipsは二次情報であり、出典を本文中に明記しています。システムは随時更新されるため、重要な操作の前には公式マニュアル・FAQの最新版を確認してください。</div>
 
 <p style="margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem;">
-mints 実務マニュアル（事務所内利用）／作成日 2026年6月10日・最終確認日 2026年7月1日／ベース：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版（2026.05.16改訂・現行最新）
+mints 実務マニュアル（事務所内利用）／作成日 2026年6月10日・最終確認日 2026年7月8日／ベース：裁判所「民事裁判書類電子提出システム操作マニュアル ～当事者ユーザ編～」2.2版（2026.05.16改訂・現行最新）
 </p>
 
 </main>
